@@ -1,0 +1,169 @@
+import { useState } from "react";
+
+function SignUpPage() {
+  const [formData, setFormData] = useState({
+    role: "job_seeker",
+    fullName: "",
+    College_name: "",
+    enrollmentNo: "",
+    College_email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Send formData to backend API here
+  };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-blue-50">
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+        <h1 className="text-2xl font-bold text-center mb-2">JobConnect</h1>
+        <p className="text-gray-500 text-center mb-6">
+          Trusted by thousands of companies and job seekers worldwide.
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Role Selection */}
+          <div>
+            <label className="block mb-2 font-medium">I am a:</label>
+            <div className="flex space-x-4">
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="role"
+                  value="job_seeker"
+                  checked={formData.role === "job_seeker"}
+                  onChange={handleChange}
+                  className="accent-blue-600"
+                />
+                <span>Job Seeker</span>
+              </label>
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="role"
+                  value="company"
+                  checked={formData.role === "company"}
+                  onChange={handleChange}
+                  className="accent-blue-600"
+                />
+                <span>Company</span>
+              </label>
+            </div>
+          </div>
+
+          {/* Full Name and HR Name*/}
+          <div>
+            <label className="block mb-1 font-medium">
+              {formData.role === "job_seeker" ? "Full Name" : "HR Name"}
+            </label>
+            <input
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+              placeholder={
+                formData.role === "job_seeker"
+                  ? "Enter your full name"
+                  : "Enter your HR name"
+              }
+              required
+            />
+          </div>
+          {/* College Name and Company name*/}
+          <div>
+            <label className="block mb-1 font-medium">
+              {formData.role === "job_seeker" ? "Full Name" : "Company Name"}
+            </label>
+            <input
+              type="text"
+              name="College_name"
+              value={formData.College_name}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your college name"
+              required
+            />
+          </div>
+          {/* Enrollment no  and CIN ID */}
+          <div>
+            <label className="block mb-1 font-medium">
+              {formData.role === "job_seeker" ? "Enrollment no" : "CIN ID"}
+            </label>
+            <div className="flex justify-between items-center">
+              <input
+                type="text"
+                name="enrollmentNo"
+                value={formData.enrollmentNo}
+                onChange={handleChange}
+                className={formData.role === "company" ? "border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" : "w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"}
+                placeholder={
+                  formData.role === "job_seeker"
+                    ? "Enter your Enrollment no"
+                    : "Enter your CIN Id"
+                }
+                required
+              />
+              {formData.role === "company" && <button className="bg-green-500 text-white rounded-lg px-5 py-2.5">Verify CIN ID</button>}
+            </div>
+          </div>
+          {/* Email */}
+          <div>
+            <label className="block mb-1 font-medium">{formData.role === "job_seeker" ? "College Email" : "Company Email"}</label>
+            <input
+              type="email"
+              name="College_email"
+              value={formData.College_email}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+              placeholder={formData.role === "job_seeker" ? "Enter your college email" : "Enter your company email"}
+              required
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block mb-1 font-medium">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+              placeholder="Create a password (min. 6 characters)"
+              required
+            />
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-black text-white rounded-lg py-2 hover:bg-gray-900"
+          >
+            Create Account
+          </button>
+        </form>
+
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Already have an account?{" "}
+          <a href="/auth/login" className="text-blue-600 hover:underline">
+            Sign in
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default SignUpPage;
