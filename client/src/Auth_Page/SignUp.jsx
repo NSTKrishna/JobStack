@@ -5,13 +5,12 @@ import { useNavigate } from "react-router-dom";
 function SignUpPage() {
   const navigate = useNavigate();
 
-
   const [formData, setFormData] = useState({
     role: "job_seeker",
     fullName: "",
-    College_name: "",
-    enrollmentNo: "",
-    College_email: "",
+    organizationName: "",
+    idNumber: "",
+    email: "",
     password: "",
   });
 
@@ -43,28 +42,24 @@ function SignUpPage() {
           <div>
             <label className="block mb-2 font-medium">I am a:</label>
             <div className="flex space-x-4">
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="role"
-                  value="job_seeker"
-                  checked={formData.role === "job_seeker"}
-                  onChange={handleChange}
-                  className="accent-blue-600"
-                />
-                <span>Job Seeker</span>
-              </label>
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="role"
-                  value="company"
-                  checked={formData.role === "company"}
-                  onChange={handleChange}
-                  className="accent-blue-600"
-                />
-                <span>Company</span>
-              </label>
+              {["job_seeker", "company"].map((roleOption) => (
+                <label
+                  key={roleOption}
+                  className="flex items-center space-x-2 cursor-pointer"
+                >
+                  <input
+                    type="radio"
+                    name="role"
+                    value={roleOption}
+                    checked={formData.role === roleOption}
+                    onChange={handleChange}
+                    className="accent-blue-600"
+                  />
+                  <span>
+                    {roleOption === "job_seeker" ? "Job Seeker" : "Company"}
+                  </span>
+                </label>
+              ))}
             </div>
           </div>
 
@@ -117,7 +112,11 @@ function SignUpPage() {
                 name="enrollmentNo"
                 value={formData.enrollmentNo}
                 onChange={handleChange}
-                className={formData.role === "company" ? "border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" : "w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"}
+                className={
+                  formData.role === "company"
+                    ? "border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    : "w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                }
                 placeholder={
                   formData.role === "job_seeker"
                     ? "Enter your Enrollment ID"
@@ -125,19 +124,31 @@ function SignUpPage() {
                 }
                 required
               />
-              {formData.role === "company" && <button className="bg-green-500 text-white rounded-lg px-5 py-2.5">Verify CIN ID</button>}
+              {formData.role === "company" && (
+                <button className="bg-green-500 text-white rounded-lg px-4 py-2">
+                  Verify CIN ID
+                </button>
+              )}
             </div>
           </div>
           {/* Email */}
           <div>
-            <label className="block mb-1 font-medium">{formData.role === "job_seeker" ? "College Email" : "Company Email"}</label>
+            <label className="block mb-1 font-medium">
+              {formData.role === "job_seeker"
+                ? "College Email"
+                : "Company Email"}
+            </label>
             <input
               type="email"
               name="College_email"
               value={formData.College_email}
               onChange={handleChange}
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
-              placeholder={formData.role === "job_seeker" ? "Enter your College Email" : "Enter your Company Email"}
+              placeholder={
+                formData.role === "job_seeker"
+                  ? "Enter your College Email"
+                  : "Enter your Company Email"
+              }
               required
             />
           </div>

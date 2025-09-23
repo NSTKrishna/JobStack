@@ -1,24 +1,20 @@
 const express = require('express');
-const cors = require('cors');
 require('dotenv').config();
 
-//              
-const authRoutes = require('./routes/authRoutes');
-
 const app = express();
-// middleware to handle cors 
 
-app.use(cors({
-    origin: `http://localhost:${process.env.PORT}`, // allow requests from this origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // allowed methods
-    credentials: true // allow cookies to be sent   
-}))
+const { jsonMiddleware } = require('./middlewares/jsonMiddleware.js');
+app.use(jsonMiddleware);
 
-// middleware to parse JSON bodies
-app.use(express.json());
+const { corsMiddleware } = require('./middlewares/corsMiddleware.js');
+app.use(corsMiddleware);
+            
+const userAuth = require('./routes/userAuthRoute.js');
+const companyAuth = require('./routes/companyAuthRoute.js');
 
-// Routes
-// app.use('/api/auth', authRoutes);
+
+app.use('/api/auth', userAuth);
+app.use('/api/auth', companyAuth);
 
 const PORT = process.env.PORT;
 app.listen(PORT,()=>{
