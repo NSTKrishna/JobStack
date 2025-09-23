@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { DropDown } from "../Effects/Marquee"; 
 
 function Navbar() {
     return (
@@ -12,7 +13,8 @@ function Navbar() {
                     <Link className="text-gray-300 hover:text-white" to='/Post_job'>Post a Job</Link>
                 </ul>
                 <div>
-                    <Link className="bg-white text-black px-4 py-2 rounded" to='/Sign Up'>Sign Up</Link>
+                    <Link className="bg-white text-black px-4 py-2 rounded" to='/SignUp'>Register</Link>
+                    <DropDown />
                 </div>
             </div>
         </nav>

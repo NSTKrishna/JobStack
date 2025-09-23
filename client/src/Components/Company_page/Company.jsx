@@ -1,58 +1,58 @@
 function CompanyView() {
   const company = [
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
     {
-      Name: "Applio",
+      Name: "Apple",
       Logo: "https://via.placeholder.com/150",
       Company:
-        "Applio is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
+        "Apple is a next-generation AI company building smarter tools for tomorrow’s world for today's workforce.",
     },
   ];
   return (

@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignUpPage() {
+  const navigate = useNavigate();
+
+
   const [formData, setFormData] = useState({
     role: "job_seeker",
     fullName: "",
@@ -20,6 +25,7 @@ function SignUpPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigate(-1);
     console.log("Form submitted:", formData);
     // Send formData to backend API here
   };
@@ -75,8 +81,8 @@ function SignUpPage() {
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
               placeholder={
                 formData.role === "job_seeker"
-                  ? "Enter your full name"
-                  : "Enter your HR name"
+                  ? "Enter your Full Name"
+                  : "Enter your Full Name"
               }
               required
             />
@@ -84,7 +90,7 @@ function SignUpPage() {
           {/* College Name and Company name*/}
           <div>
             <label className="block mb-1 font-medium">
-              {formData.role === "job_seeker" ? "Full Name" : "Company Name"}
+              {formData.role === "job_seeker" ? "College Name" : "Company Name"}
             </label>
             <input
               type="text"
@@ -92,14 +98,18 @@ function SignUpPage() {
               value={formData.College_name}
               onChange={handleChange}
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your college name"
+              placeholder={
+                formData.role === "job_seeker"
+                  ? "Enter your College Name"
+                  : "Enter your Company Name"
+              }
               required
             />
           </div>
           {/* Enrollment no  and CIN ID */}
           <div>
             <label className="block mb-1 font-medium">
-              {formData.role === "job_seeker" ? "Enrollment no" : "CIN ID"}
+              {formData.role === "job_seeker" ? "Enrollment ID" : "CIN ID"}
             </label>
             <div className="flex justify-between items-center">
               <input
@@ -110,8 +120,8 @@ function SignUpPage() {
                 className={formData.role === "company" ? "border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" : "w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"}
                 placeholder={
                   formData.role === "job_seeker"
-                    ? "Enter your Enrollment no"
-                    : "Enter your CIN Id"
+                    ? "Enter your Enrollment ID"
+                    : "Enter your CIN ID"
                 }
                 required
               />
@@ -127,7 +137,7 @@ function SignUpPage() {
               value={formData.College_email}
               onChange={handleChange}
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
-              placeholder={formData.role === "job_seeker" ? "Enter your college email" : "Enter your company email"}
+              placeholder={formData.role === "job_seeker" ? "Enter your College Email" : "Enter your Company Email"}
               required
             />
           </div>
@@ -154,13 +164,6 @@ function SignUpPage() {
             Create Account
           </button>
         </form>
-
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Already have an account?{" "}
-          <a href="/auth/login" className="text-blue-600 hover:underline">
-            Sign in
-          </a>
-        </p>
       </div>
     </div>
   );
