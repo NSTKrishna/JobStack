@@ -32,7 +32,7 @@ const CompanySignup = async (req, res) => {
     // understand this logic properly
     const existingCompany = await prisma.company.findFirst({
       where: {
-        OR: [
+        AND: [
           { email },                
           { CIN: idNumber },   
           { company: organizationName } 

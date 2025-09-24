@@ -45,7 +45,7 @@ const UserSignup = async (req, res) => {
         email,
         password: hashedPassword,
         enrollment: idNumber,
-        collegeId: College.id,
+        collegeId: College.id, 
       },
     });
 
@@ -55,5 +55,5 @@ const UserSignup = async (req, res) => {
     console.error(err);
   }
 };
-
+ 
 module.exports = { UserSignup };
