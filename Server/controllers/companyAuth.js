@@ -1,7 +1,5 @@
-const { PrismaClient } = require("../generated/prisma");
+const prisma = require("../db/config.js")
 const bcrypt = require("bcryptjs");
-
-const prisma = new PrismaClient();
 
 const CompanySignup = async (req, res) => {
   try {
@@ -32,7 +30,7 @@ const CompanySignup = async (req, res) => {
     // understand this logic properly
     const existingCompany = await prisma.company.findFirst({
       where: {
-        AND: [
+        OR: [
           { email },                
           { CIN: idNumber },   
           { company: organizationName } 

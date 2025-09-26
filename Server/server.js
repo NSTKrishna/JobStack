@@ -11,10 +11,12 @@ app.use(corsMiddleware);
             
 const userAuth = require('./routes/userAuthRoute.js');
 const companyAuth = require('./routes/companyAuthRoute.js');
+const UserLogin = require('./routes/login.js')
 
 
 app.use('/api/auth', userAuth);
 app.use('/api/auth', companyAuth);
+app.use('/api/auth', UserLogin);
 
 const PORT = process.env.PORT;
 app.listen(PORT,()=>{
