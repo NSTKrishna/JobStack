@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+
+const userAuth = require('./Auth/userAuth.Route.js');
+const companyAuth = require('./Auth/companyAuth.Route.js');
+
+router.use('/auth', userAuth);
+router.use('/auth', companyAuth);
+
+module.exports = router;
