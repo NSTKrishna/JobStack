@@ -1,27 +1,20 @@
-const prisma = require("../db/config.js")
+const prisma = require("../db/config.js");
 const bcrypt = require("bcryptjs");
+const { ValidateUser } = require("../utils/validator.js");
 
 const UserSignup = async (req, res) => {
   try {
     const { fullName, organizationName, idNumber, email, password } = req.body;
+    const valid = Validate({
+      fullName,
+      organizationName,
+      idNumber,
+      email,
+      password,
+    });
 
-    if (!fullName || !organizationName || !email || !password) {
-      return res
-        .status(400)
-        .json({ message: "All required fields must be provided" });
-    }
-
-    /// alert for idNumber length
-    if (idNumber.length < 10) {
-      return res
-        .status(400)
-        .json({ message: "ID number must be at least 10 characters long" });
-    }
-    /// alert for password length
-    if (password.length < 6) {
-      return res
-        .status(400)
-        .json({ message: "Password must be at least 6 characters long" });
+    if (!valid) {
+      return res.status(400).json({ message: "Invalid data" });
     }
 
     let College = await prisma.college.findUnique({
@@ -43,7 +36,7 @@ const UserSignup = async (req, res) => {
         email,
         password: hashedPassword,
         enrollment: idNumber,
-        collegeId: College.id, 
+        collegeId: College.id,
       },
     });
 
@@ -53,5 +46,5 @@ const UserSignup = async (req, res) => {
     console.error(err);
   }
 };
- 
+
 module.exports = { UserSignup };
