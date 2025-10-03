@@ -1,17 +1,21 @@
 const express = require('express');
 require('dotenv').config();
+const cookieParser = require('cookie-parser'); // later
+
 
 const app = express();
 
-const { jsonMiddleware } = require('./middlewares/jsonMiddleware.js');
+app.use(cookieParser()); // later
+
+const { jsonMiddleware } = require('./middlewares/json.Middleware.js');
 app.use(jsonMiddleware);
 
-const { corsMiddleware } = require('./middlewares/corsMiddleware.js');
+const { corsMiddleware } = require('./middlewares/cors.Middleware.js');
 app.use(corsMiddleware);
             
-const userAuth = require('./routes/userAuthRoute.js');
-const companyAuth = require('./routes/companyAuthRoute.js');
-const UserLogin = require('./routes/login.js')
+const userAuth = require('./routes/userAuth.Route.js');
+const companyAuth = require('./routes/companyAuth.Route.js');
+const UserLogin = require('./routes/login.Route.js')
 
 
 app.use('/api/auth', userAuth);
