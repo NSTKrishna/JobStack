@@ -1,5 +1,5 @@
-const prisma = require('../db/config.js')
-const {setUser} = require('../utils/auth.js')
+const prisma = require("../../db/config.js")
+const {setUser} = require('../../utils/validator.js')
 const bcrypt = require('bcryptjs')
 
 

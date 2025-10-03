@@ -1,4 +1,4 @@
-const prisma = require("../db/config.js");
+const prisma = require("../../db/config.js");
 const bcrypt = require("bcryptjs");
 
 const CompanySignup = async (req, res) => {

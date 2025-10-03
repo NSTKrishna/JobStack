@@ -1,6 +1,6 @@
-const prisma = require("../db/config.js");
+const prisma = require("../../db/config.js");
 const bcrypt = require("bcryptjs");
-const { ValidateUser } = require("../utils/validator.js");
+const { ValidateUser } = require("../../utils/validator.js");
 
 const UserSignup = async (req, res) => {
   try {
