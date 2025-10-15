@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const CompanyLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await prisma.user.findUnique({
+    const user = await prisma.company.findUnique({
       where: {
         email,
       },
@@ -22,9 +22,9 @@ const CompanyLogin = async (req, res) => {
       });
     } 
 
-    const token = setUser(user, "Company");
+    const token = setUser(user, "company");
     res.status(200).cookie('jwt', token, {
-        maxAge: 60 * 1000 // 1 minute // later
+        maxAge: 60 * 60 * 1000 // 1 hr
     });
 
     return res.status(200).json({

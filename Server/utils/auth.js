@@ -10,7 +10,7 @@ function setUser(user,role) {
       role: role
     },
     secret, {
-      expiresIn: '1min' // 1 minute // later
+      expiresIn: '1hr' // 1 hr // later
     }
   );
 }

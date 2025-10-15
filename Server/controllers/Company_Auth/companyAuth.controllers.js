@@ -1,5 +1,6 @@
 const prisma = require("../../db/config.js");
 const bcrypt = require("bcryptjs");
+const { Validate } = require("../../utils/validator.js");
 
 const CompanySignup = async (req, res) => {
   try {
@@ -12,6 +13,7 @@ const CompanySignup = async (req, res) => {
       email,
       password,
     });
+    
     if (!valid) {
       return res.status(400).json({ message: "Invalid data" });
     }

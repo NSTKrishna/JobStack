@@ -32,10 +32,25 @@ model User {
 }
 
 model Company {
-  id Int @id @default(autoincrement())
-  name String
-  CIN String @unique
-  email String @unique
+  id       Int   @id @default(autoincrement())
+  name     String
+  CIN      String @unique
+  email    String @unique
   password String
-  company String @unique
+  company  String @unique
+  jobs     Job[]
+}
+
+model Job {
+  id          Int     @id @default(autoincrement())
+  JobTitle    String
+  JobType     String
+  Department  String
+  Location    String
+  Salary      Int
+  Description String
+  Requirement String
+  companyId   Int
+  PostedBy    Company @relation(fields: [companyId], references: [id])
+  createdAt   DateTime @default(now())
 }

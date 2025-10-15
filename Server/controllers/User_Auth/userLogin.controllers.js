@@ -1,5 +1,5 @@
 const prisma = require("../../db/config.js")
-const {setUser} = require('../../utils/validator.js')
+const {setUser} = require('../../utils/auth.js')
 const bcrypt = require('bcryptjs')
 
 
@@ -25,9 +25,9 @@ const UserLogin = async (req,res) => {
             });
         }
 
-        const token = setUser(user,'Student')
+        const token = setUser(user,'student')
         res.cookie('jwt',token ,{
-            maxAge : 60 * 1000 // 1 minute // later
+            maxAge : 60 * 60 * 1000 // 1 hour
         })
 
         return res.status(200).json({
