@@ -15,30 +15,31 @@ datasource db {
 
 model College {
   id         Int     @id @default(autoincrement())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  users     User[]
+  Name      String   @unique
+  CreatedAt DateTime @default(now())
+  Users     User[]
 }
 
 model User {
   id          Int    @id @default(autoincrement())
-  name        String 
-  enrollment  String    @unique
-  email       String @unique
-  college     College? @relation(fields: [collegeId], references: [id])
-  collegeId   Int?
-  password    String
-  createdAt   DateTime @default(now())
+  Name        String 
+  Enrollment  String @unique
+  Email       String @unique
+  College     College? @relation(fields: [CollegeId], references: [id])
+  CollegeId   Int?
+  Password    String
+  CreatedAt   DateTime @default(now())
+  Applications Applications[]
 }
 
 model Company {
   id       Int   @id @default(autoincrement())
-  name     String
+  Name     String
   CIN      String @unique
-  email    String @unique
-  password String
-  company  String @unique
-  jobs     Job[]
+  Email    String @unique
+  Password String
+  Company  String @unique
+  Jobs     Job[]
 }
 
 model Job {
@@ -46,11 +47,75 @@ model Job {
   JobTitle    String
   JobType     String
   Department  String
-  Location    String
+  Location    String @db.VarChar(100)
   Salary      Int
-  Description String
-  Requirement String
-  companyId   Int
-  PostedBy    Company @relation(fields: [companyId], references: [id])
-  createdAt   DateTime @default(now())
+  Description String @db.VarChar(500)
+  Requirement String @db.VarChar(500)
+  CompanyId   Int
+  PostedBy    Company @relation(fields: [CompanyId], references: [id])
+  CreatedAt   DateTime @default(now())
+  Applications Applications[]
+}
+
+model Profile_users {
+  id Int @id @default(autoincrement())
+  First_Name String @db.VarChar(50)
+  Last_Name String @db.VarChar(50)
+  Email String @unique
+  Phone String @unique
+  City String @db.VarChar(50)
+  Experience String @db.VarChar(100)
+  Summary String @db.VarChar(500)
+}
+
+model Profile_companies {
+  id Int @id @default(autoincrement())
+  Company_Name String @db.VarChar(100)
+  website String @db.VarChar(100)
+  Location String @db.VarChar(100)
+  Description String @db.VarChar(500)
+  Size String @db.VarChar(50)
+  Email String @unique
+}
+
+model Applications {
+  id Int @id @default(autoincrement())
+  userId Int
+  jobId Int
+  status    String   @default("pending")
+  appliedAt DateTime @default(now())
+  user User @relation(fields : [userId], references: [id])
+  job Job @relation(fields : [jobId], references: [id])
+}
+
+model Profile_user {
+  id Int @id @default(autoincrement())
+  firstName String @db.VarChar(50)
+  lastName String @db.VarChar(50)
+  email String @unique
+  phone String @unique
+  city String @db.VarChar(50)
+  experience String @db.VarChar(100)
+  summary String @db.VarChar(500)
+}
+
+model Show_Company {
+  id Int @id @default(autoincrement())
+  companyName String @db.VarChar(100)
+  website String @db.VarChar(100)
+  location String @db.VarChar(100)
+  description String @db.VarChar(500)
+  size String @db.VarChar(50)
+  email String @unique
+}
+
+model Show_Job {
+  id Int @id @default(autoincrement())
+  jobTitle String
+  jobType String
+  department String
+  location String @db.VarChar(100)
+  salary Int
+  description String @db.VarChar(500)
+  requirement String @db.VarChar(500)
 }

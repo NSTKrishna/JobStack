@@ -21,7 +21,7 @@ const CompanySignup = async (req, res) => {
     // understand this logic properly
     const existingCompany = await prisma.company.findFirst({
       where: {
-        OR: [{ email }, { CIN: idNumber }, { company: organizationName }],
+        OR: [{ Email : email }, { CIN: idNumber }, { Company: organizationName }],
       },
     });
 
@@ -34,11 +34,11 @@ const CompanySignup = async (req, res) => {
 
     Company = await prisma.company.create({
       data: {
-        name: fullName,
-        company: organizationName,
+        Name: fullName,
+        Company: organizationName,
         CIN: idNumber,
-        email,
-        password: await bcrypt.hash(password, 10),
+        Email: email,
+        Password: await bcrypt.hash(password, 10),
       },
     });
 

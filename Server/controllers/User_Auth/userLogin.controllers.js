@@ -8,7 +8,7 @@ const UserLogin = async (req,res) => {
         const {email,password} = req.body;
         const user = await prisma.user.findUnique({
             where: {
-                email
+                Email: email
             }
         })
         if (!user) {
@@ -17,7 +17,7 @@ const UserLogin = async (req,res) => {
             })
         }    
 
-        const comparePassword = await bcrypt.compare(password,user.password)
+        const comparePassword = await bcrypt.compare(password,user.Password)
     
         if (!comparePassword) {
             return res.status(401).json({
@@ -29,7 +29,7 @@ const UserLogin = async (req,res) => {
         res.cookie('jwt',token ,{
             maxAge : 60 * 60 * 1000 // 1 hour
         })
-
+ 
         return res.status(200).json({
             message: 'Login successful',
             user

@@ -1,3 +1,5 @@
+const prisma = require("../../db/config");
+
 const PostJob = async (req, res) => {
   try {
     const {
@@ -20,6 +22,10 @@ const PostJob = async (req, res) => {
         Description,
         Requirement,
       },
+    });
+    return res.status(200).json({
+      message: "Job Posted Successfully",
+      job,
     });
   } catch (err) {
     return res.status(500).json({

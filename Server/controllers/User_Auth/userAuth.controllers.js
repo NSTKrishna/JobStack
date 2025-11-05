@@ -18,12 +18,12 @@ const UserSignup = async (req, res) => {
     }
 
     let College = await prisma.college.findUnique({
-      where: { name: organizationName },
+      where: { Name: organizationName },
     });
     if (!College) {
       College = await prisma.college.create({
         data: {
-          name: organizationName,
+          Name: organizationName,
         },
       });
     }
@@ -32,18 +32,17 @@ const UserSignup = async (req, res) => {
 
     const user = await prisma.user.create({
       data: {
-        name: fullName,
-        email,
-        password: hashedPassword,
-        enrollment: idNumber,
-        collegeId: College.id,
+        Name: fullName,
+        Email: email,
+        Password: hashedPassword,
+        Enrollment: idNumber,
+        CollegeId: College.id,
       },
     });
 
     res.status(201).json({ message: "User registered successfully", user });
   } catch (err) {
     res.status(500).json({ error: "Internal server error" });
-    console.error(err);
   }
 };
 

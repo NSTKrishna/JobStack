@@ -7,19 +7,20 @@ const CompanyLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await prisma.company.findUnique({
       where: {
-        email,
-      },
+        Email: email
+      }
     });
     if (!user) {
       return res.status(401).json({
         message: "Invalid email or password",
       });
     }
-    const comparePassword = await bcrypt.compare(password, user.password);
+    const comparePassword = await bcrypt.compare(password, user.Password);
     if (!comparePassword) {
       return res.status(401).json({
         message: "Invalid email or password",
       });
+
     } 
 
     const token = setUser(user, "company");

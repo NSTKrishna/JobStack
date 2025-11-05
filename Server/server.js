@@ -1,10 +1,10 @@
 const express = require("express");
-require("dotenv").config();
-const cookieParser = require("cookie-parser"); // later
-
+const cookieParser = require("cookie-parser");
 const app = express();
 
-app.use(cookieParser()); // later
+
+require("dotenv").config();
+app.use(cookieParser());
 
 const { jsonMiddleware } = require("./middlewares/json.Middleware.js");
 app.use(jsonMiddleware);
@@ -12,7 +12,7 @@ app.use(jsonMiddleware);
 const { corsMiddleware } = require("./middlewares/cors.Middleware.js");
 app.use(corsMiddleware);
 
-const routes = require("./routes/index.js");
+const routes = require("./routes/mainRoute.js");
 app.use('/api', routes);
 
 const PORT = process.env.PORT;
