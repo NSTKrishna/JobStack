@@ -1,8 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules"; 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Link } from "react-router-dom";
 
 const logos = [
   {
@@ -149,25 +147,5 @@ export function Testimonials() {
         ))}
       </Swiper>
     </div>
-  );
-}
-
-export function DropDown() {
-  return (
-    <Menu>
-      <MenuButton className="bg-pink-500 text-white px-4 py-2 rounded ml-2">Login</MenuButton>
-      <MenuItems anchor="bottom" className="bg-gray-500 text-white px-4 py-2 rounded ml-2 mt-2">
-        <MenuItem>
-          <Link className="block" to="/Login_Student">
-            Student
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link className="block" to="/Login_Company">
-            Company
-          </Link>
-        </MenuItem>
-      </MenuItems>
-    </Menu>
   );
 }

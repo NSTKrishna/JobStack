@@ -1,66 +1,182 @@
-import React  from "react";
 import { Testimonials } from "../../Effects/Marquee";
+import { MapPin, Briefcase, Clock, ArrowRight, Bookmark } from "lucide-react";
+
 function Jobs() {
-    return (
-        <div className="Container">
-            <div className="text-center mt-5"> 
-                <p className="text-[4rem] font-bold m-2">Featured Jobs</p>
-                <p>Discover hand-picked opportunities from top companies Discover hand-picked opportunities from top companies</p>
-            </div>
-            <div className="grid grid-cols-3 gap-4 p-10">
-                <div className="border-2 border-black rounded-lg p-4">
-                    <h2 className="text-xl font-bold mb-2">AI Researcher</h2>
-                    <p className="text-gray-700 mb-4">Company: Tech Innovations</p>
-                    <p className="text-gray-700 mb-4">Location: Remote</p>
-                    <p className="text-gray-700 mb-4">Experience: 3+ years</p>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded">Apply Now</button>
-                </div>
-                <div className="border-2 border-black rounded-lg p-4">
-                    <h2 className="text-xl font-bold mb-2">Machine Learning Engineer</h2>
-                    <p className="text-gray-700 mb-4">Company: AI Solutions</p>
-                    <p className="text-gray-700 mb-4">Location: New York, NY</p>
-                    <p className="text-gray-700 mb-4">Experience: 2+ years</p>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded">Apply Now</button>
-                </div>
-                <div className="border-2 border-black rounded-lg p-4">
-                    <h2 className="text-xl font-bold mb-2">Data Scientist</h2>
-                    <p className="text-gray-700 mb-4">Company: Data Insights</p>
-                    <p className="text-gray-700 mb-4">Location: San Francisco, CA</p>
-                    <p className="text-gray-700 mb-4">Experience: 4+ years</p>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded">Apply Now</button>
-                </div>    
-                <div className="border-2 border-black rounded-lg p-4">
-                    <h2 className="text-xl font-bold mb-2">AI Researcher</h2>
-                    <p className="text-gray-700 mb-4">Company: Tech Innovations</p>
-                    <p className="text-gray-700 mb-4">Location: Remote</p>
-                    <p className="text-gray-700 mb-4">Experience: 3+ years</p>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded">Apply Now</button>
-                </div>
-                <div className="border-2 border-black rounded-lg p-4">
-                    <h2 className="text-xl font-bold mb-2">Machine Learning Engineer</h2>
-                    <p className="text-gray-700 mb-4">Company: AI Solutions</p>
-                    <p className="text-gray-700 mb-4">Location: New York, NY</p>
-                    <p className="text-gray-700 mb-4">Experience: 2+ years</p>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded">Apply Now</button>
-                </div>
-                <div className="border-2 border-black rounded-lg p-4">
-                    <h2 className="text-xl font-bold mb-2">Data Scientist</h2>
-                    <p className="text-gray-700 mb-4">Company: Data Insights</p>
-                    <p className="text-gray-700 mb-4">Location: San Francisco, CA</p>
-                    <p className="text-gray-700 mb-4">Experience: 4+ years</p>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded">Apply Now</button>
-                </div>  
-            </div>
-            <div className="text-center mb-10">
-               <button className="bg-blue-500 text-white px-4 py-2 rounded">Views All Jobs</button> 
-            </div>
-            <div className="Testimonials text-center mb-10 mt-30">
-                <p className="" >Testimonials</p>
-                <p className="text-[4rem] font-bold mt-3" >What Our Users Say</p>
-                <p className="text-[1rem]" >Hear what employers and job seekers are saying about us.</p>
-                <Testimonials />
-            </div>
+  const jobListings = [
+    {
+      title: "AI Researcher",
+      company: "Tech Innovations",
+      location: "Remote",
+      experience: "3+ years",
+      type: "Full Time",
+      salary: "$120k - $180k",
+      tags: ["AI", "Machine Learning", "Research"],
+      logo: "🤖",
+    },
+    {
+      title: "Machine Learning Engineer",
+      company: "AI Solutions",
+      location: "New York, NY",
+      experience: "2+ years",
+      type: "Full Time",
+      salary: "$100k - $150k",
+      tags: ["Python", "TensorFlow", "ML"],
+      logo: "🧠",
+    },
+    {
+      title: "Data Scientist",
+      company: "Data Insights",
+      location: "San Francisco, CA",
+      experience: "4+ years",
+      type: "Full Time",
+      salary: "$130k - $190k",
+      tags: ["Data Analysis", "Statistics", "Python"],
+      logo: "📊",
+    },
+    {
+      title: "Full Stack Developer",
+      company: "Tech Innovations",
+      location: "Remote",
+      experience: "3+ years",
+      type: "Contract",
+      salary: "$110k - $160k",
+      tags: ["React", "Node.js", "MongoDB"],
+      logo: "💻",
+    },
+    {
+      title: "DevOps Engineer",
+      company: "Cloud Systems",
+      location: "Austin, TX",
+      experience: "5+ years",
+      type: "Full Time",
+      salary: "$140k - $200k",
+      tags: ["AWS", "Docker", "Kubernetes"],
+      logo: "⚙️",
+    },
+    {
+      title: "Frontend Developer",
+      company: "Design Co",
+      location: "Los Angeles, CA",
+      experience: "2+ years",
+      type: "Full Time",
+      salary: "$90k - $140k",
+      tags: ["React", "TypeScript", "CSS"],
+      logo: "🎨",
+    },
+  ];
+
+  return (
+    <div
+      className="Container bg-gradient-to-b from-white to-gray-50 py-20"
+      id="jobs"
+    >
+      {/* Header Section */}
+      <div className="text-center max-w-3xl mx-auto px-6 mb-16">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-6">
+          <Briefcase className="h-4 w-4 text-blue-600" />
+          <span className="text-sm font-medium text-blue-600">
+            Featured Opportunities
+          </span>
         </div>
-    )
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+          Featured Jobs
+        </h2>
+        <p className="text-lg text-gray-600">
+          Discover hand-picked opportunities from top companies and kickstart
+          your dream career today
+        </p>
+      </div>
+
+      {/* Job Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 md:px-10 lg:px-20 mb-12">
+        {jobListings.map((job, index) => (
+          <div
+            key={index}
+            className="group bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-blue-300 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            {/* Company Logo & Bookmark */}
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-gray-100 rounded-xl flex items-center justify-center text-2xl">
+                  {job.logo}
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900 group-hover:text-blue-600 transition-colors">
+                    {job.title}
+                  </h3>
+                  <p className="text-sm text-gray-500">{job.company}</p>
+                </div>
+              </div>
+              <button className="p-2 hover:bg-blue-50 rounded-lg transition-colors">
+                <Bookmark className="h-5 w-5 text-gray-400 hover:text-blue-600" />
+              </button>
+            </div>
+
+            {/* Job Details */}
+            <div className="space-y-2 mb-4">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <MapPin className="h-4 w-4 text-blue-600" />
+                <span>{job.location}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Clock className="h-4 w-4 text-blue-600" />
+                <span>{job.experience}</span>
+                <span className="mx-2">•</span>
+                <span className="px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs font-medium">
+                  {job.type}
+                </span>
+              </div>
+              <div className="text-sm font-semibold text-gray-900 mt-2">
+                {job.salary}
+              </div>
+            </div>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {job.tags.map((tag, tagIndex) => (
+                <span
+                  key={tagIndex}
+                  className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* Apply Button */}
+            <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+              Apply Now
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* View All Jobs Button */}
+      <div className="text-center mb-20">
+        <button className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold border-2 border-gray-200 rounded-full hover:border-blue-600 hover:shadow-xl transition-all duration-300">
+          View All Jobs
+          <ArrowRight className="h-5 w-5" />
+        </button>
+      </div>
+
+      {/* Testimonials Section */}
+      <div className="Testimonials text-center px-6 py-16 bg-gradient-to-br from-blue-50 to-gray-50 rounded-3xl mx-6 md:mx-10 lg:mx-20">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md mb-6">
+          <span className="text-sm font-medium text-blue-600">
+            ⭐ Testimonials
+          </span>
+        </div>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+          What Our Users Say
+        </h2>
+        <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+          Hear success stories from employers and job seekers who found their
+          perfect match through JobStack
+        </p>
+        <Testimonials />
+      </div>
+    </div>
+  );
 }
 export default Jobs;
