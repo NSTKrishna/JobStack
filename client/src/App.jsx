@@ -4,7 +4,7 @@ import FooterApp from "./Components/Footer/footer";
 import CompanyView from "./Components/Company_page/Company";
 import Job from "./Components/Job_page/Job";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignUpPage from "./Components/Auth_Page/SignUp";
+import SignUpPage from "./Components/Auth_Page/Signup";
 import StudentDash from "./Components/Dashboard/StudentDash";
 import SavedJobs from "./Components/Dashboard/Student/savejob";
 import MyApplications from "./Components/Dashboard/Student/application";

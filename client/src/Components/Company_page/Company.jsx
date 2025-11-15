@@ -152,7 +152,7 @@ function CompanyView() {
     };
 
     fetchCompanies();
-  }, []);
+  },[]);
 
   const getIconForIndustry = (industry) => {
     const industryIcons = {
