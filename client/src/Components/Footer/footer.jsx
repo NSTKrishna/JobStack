@@ -207,6 +207,9 @@ function FooterApp() {
             <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <input
                 type="email"
+                id="newsletter-email"
+                name="newsletter-email"
+                autoComplete="email"
                 placeholder="Enter your email"
                 className="px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent min-w-[280px]"
               />

@@ -5,8 +5,6 @@ import CompanyView from "./Components/Company_page/Company";
 import Job from "./Components/Job_page/Job";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUpPage from "./Components/Auth_Page/SignUp";
-import LoginStudent from "./Components/Auth_Page/Login/Login_Student";
-import LoginCompany from "./Components/Auth_Page/Login/Login_Company";
 import StudentDash from "./Components/Dashboard/StudentDash";
 import SavedJobs from "./Components/Dashboard/Student/savejob";
 import MyApplications from "./Components/Dashboard/Student/application";
@@ -18,6 +16,7 @@ import CompanyProfile from "./Components/Dashboard/Company/profile";
 import StudentDashboardHeader from "./Components/Dashboard/Nav_Student/StudentDashboard";
 import CompanyDashboardHeader from "./Components/Dashboard/Nav_Company/CompanyDashboard";
 import CompanyApplication from "./Components/Dashboard/Company/application";
+import LoginStudent from "./Components/Auth_Page/Login";
 import { Outlet } from "react-router-dom";
 
 function MainLayout({ children }) {
@@ -86,18 +85,10 @@ function App() {
             }
           />
           <Route
-            path="/Login_Student"
+            path="/Login"
             element={
               <MainLayout>
                 <LoginStudent />
-              </MainLayout>
-            }
-          />
-          <Route
-            path="/Login_Company"
-            element={
-              <MainLayout>
-                <LoginCompany />
               </MainLayout>
             }
           />

@@ -1,4 +1,4 @@
-import { Testimonials } from "../../Effects/Marquee";
+import {Testimonials} from "../../Effects/Marquee";
 import { MapPin, Briefcase, Clock, ArrowRight, Bookmark } from "lucide-react";
 
 function Jobs() {
@@ -11,7 +11,6 @@ function Jobs() {
       type: "Full Time",
       salary: "$120k - $180k",
       tags: ["AI", "Machine Learning", "Research"],
-      logo: "🤖",
     },
     {
       title: "Machine Learning Engineer",
@@ -21,7 +20,6 @@ function Jobs() {
       type: "Full Time",
       salary: "$100k - $150k",
       tags: ["Python", "TensorFlow", "ML"],
-      logo: "🧠",
     },
     {
       title: "Data Scientist",
@@ -31,7 +29,6 @@ function Jobs() {
       type: "Full Time",
       salary: "$130k - $190k",
       tags: ["Data Analysis", "Statistics", "Python"],
-      logo: "📊",
     },
     {
       title: "Full Stack Developer",
@@ -41,7 +38,6 @@ function Jobs() {
       type: "Contract",
       salary: "$110k - $160k",
       tags: ["React", "Node.js", "MongoDB"],
-      logo: "💻",
     },
     {
       title: "DevOps Engineer",
@@ -51,7 +47,6 @@ function Jobs() {
       type: "Full Time",
       salary: "$140k - $200k",
       tags: ["AWS", "Docker", "Kubernetes"],
-      logo: "⚙️",
     },
     {
       title: "Frontend Developer",
@@ -61,7 +56,6 @@ function Jobs() {
       type: "Full Time",
       salary: "$90k - $140k",
       tags: ["React", "TypeScript", "CSS"],
-      logo: "🎨",
     },
   ];
 
@@ -70,7 +64,6 @@ function Jobs() {
       className="Container bg-gradient-to-b from-white to-gray-50 py-20"
       id="jobs"
     >
-      {/* Header Section */}
       <div className="text-center max-w-3xl mx-auto px-6 mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-6">
           <Briefcase className="h-4 w-4 text-blue-600" />
@@ -87,19 +80,14 @@ function Jobs() {
         </p>
       </div>
 
-      {/* Job Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 md:px-10 lg:px-20 mb-12">
         {jobListings.map((job, index) => (
           <div
             key={index}
             className="group bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-blue-300 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
           >
-            {/* Company Logo & Bookmark */}
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-gray-100 rounded-xl flex items-center justify-center text-2xl">
-                  {job.logo}
-                </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900 group-hover:text-blue-600 transition-colors">
                     {job.title}
@@ -112,7 +100,6 @@ function Jobs() {
               </button>
             </div>
 
-            {/* Job Details */}
             <div className="space-y-2 mb-4">
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <MapPin className="h-4 w-4 text-blue-600" />
@@ -131,7 +118,6 @@ function Jobs() {
               </div>
             </div>
 
-            {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-4">
               {job.tags.map((tag, tagIndex) => (
                 <span
@@ -142,8 +128,6 @@ function Jobs() {
                 </span>
               ))}
             </div>
-
-            {/* Apply Button */}
             <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 group-hover:scale-105">
               Apply Now
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -152,7 +136,6 @@ function Jobs() {
         ))}
       </div>
 
-      {/* View All Jobs Button */}
       <div className="text-center mb-20">
         <button className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold border-2 border-gray-200 rounded-full hover:border-blue-600 hover:shadow-xl transition-all duration-300">
           View All Jobs
@@ -160,7 +143,6 @@ function Jobs() {
         </button>
       </div>
 
-      {/* Testimonials Section */}
       <div className="Testimonials text-center px-6 py-16 bg-gradient-to-br from-blue-50 to-gray-50 rounded-3xl mx-6 md:mx-10 lg:mx-20">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md mb-6">
           <span className="text-sm font-medium text-blue-600">
@@ -174,8 +156,8 @@ function Jobs() {
           Hear success stories from employers and job seekers who found their
           perfect match through JobStack
         </p>
-        <Testimonials />
       </div>
+      <Testimonials />
     </div>
   );
 }

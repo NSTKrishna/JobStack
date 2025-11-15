@@ -14,20 +14,29 @@ async function restrictToLoggedIn(req, res, next) {
     req.user = user;
     next();
   } catch (err) {
-    return res.status(500).json({ message: "Unauthorized: Token invalid or expired" });
+    return res
+      .status(500)
+      .json({ message: "Unauthorized: Token invalid or expired" });
   }
 }
 
-function RoleBasedAccess(role){
-  return (req,res,next) => {
-    if (req.user.role !== role) {
-      return res.status(403).json({message : "Forbidden: Access is denied"})
+function RoleBasedAccess(role) {
+  return (req, res, next) => {
+    // Case-insensitive role comparison
+    const userRole = req.user.role?.toLowerCase();
+    const requiredRole = role?.toLowerCase();
+
+    if (userRole !== requiredRole) {
+      return res.status(403).json({
+        message: "Forbidden: Access is denied",
+        debug: { userRole: req.user.role, requiredRole: role },
+      });
     }
     next();
-  }
+  };
 }
 
 module.exports = {
   restrictToLoggedIn,
-  RoleBasedAccess
+  RoleBasedAccess,
 };

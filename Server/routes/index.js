@@ -7,8 +7,5 @@ const Post = require('./Dashboard/companyDashboard.Route.js');
 const protectedRoute = require('./Auth/protected.Route.js');
 
 router.use('/profile', protectedRoute);
-router.use('/dashboard', Post);
-router.use('/auth', userAuth);
-router.use('/auth', companyAuth);
 
 module.exports = router;

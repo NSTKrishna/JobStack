@@ -7,8 +7,8 @@ const CompanyLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await prisma.company.findUnique({
       where: {
-        Email: email
-      }
+        Email: email,
+      },
     });
     if (!user) {
       return res.status(401).json({
@@ -20,17 +20,18 @@ const CompanyLogin = async (req, res) => {
       return res.status(401).json({
         message: "Invalid email or password",
       });
-
-    } 
+    }
 
     const token = setUser(user, "company");
-    res.status(200).cookie('jwt', token, {
-        maxAge: 60 * 60 * 1000 // 1 hr
+    res.cookie("jwt", token, {
+      maxAge: 60 * 60 * 1000, // 1 hr
     });
 
     return res.status(200).json({
       message: "Login successful",
       user,
+      token,
+      role: "company",
     });
   } catch (err) {
     return res.status(500).json({

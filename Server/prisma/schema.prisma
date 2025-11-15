@@ -33,15 +33,15 @@ model User {
 }
 
 model Company {
-  id       Int   @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   Name     String
   CIN      String @unique
   Email    String @unique
   Password String
   Company  String @unique
+  profile Profile_companies?
   Jobs     Job[]
 }
-
 model Job {
   id          Int     @id @default(autoincrement())
   JobTitle    String
@@ -61,7 +61,6 @@ model Profile_users {
   id Int @id @default(autoincrement())
   First_Name String @db.VarChar(50)
   Last_Name String @db.VarChar(50)
-  Email String @unique
   Phone String @unique
   City String @db.VarChar(50)
   Experience String @db.VarChar(100)
@@ -69,14 +68,17 @@ model Profile_users {
 }
 
 model Profile_companies {
-  id Int @id @default(autoincrement())
-  Company_Name String @db.VarChar(100)
-  website String @db.VarChar(100)
-  Location String @db.VarChar(100)
-  Description String @db.VarChar(500)
-  Size String @db.VarChar(50)
-  Email String @unique
+  id           Int    @id @default(autoincrement())
+  companyId   Int   @unique
+  Company_Name String
+  website      String
+  Location     String
+  Description  String
+  Size         String
+  Industry     String @default("general")
+  company      Company @relation(fields: [companyId], references: [id])
 }
+
 
 model Applications {
   id Int @id @default(autoincrement())

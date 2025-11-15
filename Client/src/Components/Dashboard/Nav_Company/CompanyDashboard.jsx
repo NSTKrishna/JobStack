@@ -1,8 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
+import {useLogout} from "../../../Api/hooks.js";
 
 function CompanyDashboardHeader() {
   const location = useLocation();
-
+  const {handleLogout} = useLogout();
   const navItems = [
     { name: 'Overview', path: '/CompanyDashboard' },
     { name: 'Job Postings', path: '/CompanyDashboard/job-postings' },
@@ -19,11 +20,11 @@ function CompanyDashboardHeader() {
 
   return (
     <div className="bg-white border-b border-gray-200">
-      {/* Header Section */}
+
       <div className="max-w-7xl mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            {/* Company Logo/Icon */}
+
             <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center">
               <svg
                 className="w-8 h-8 text-blue-600"
@@ -45,7 +46,7 @@ function CompanyDashboardHeader() {
               <p className="text-sm text-gray-500">Company</p>
             </div>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors" onClick={handleLogout}>
             <svg
               className="w-5 h-5"
               fill="none"
@@ -65,7 +66,6 @@ function CompanyDashboardHeader() {
         </div>
       </div>
 
-      {/* Navigation Tabs */}
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex gap-8">
           {navItems.map((item) => (

@@ -124,28 +124,60 @@ export default function Marquee() {
 
 export function Testimonials() {
   return (
-    <div className="w-full bg-white py-10 px-5">
-      <Swiper
-        modules={[Autoplay]} 
-        spaceBetween={15}
-        slidesPerView={3}
-        loop={true}
-        autoplay={{ delay: 3000, disableOnInteraction: false,}}
-      >
-        {testimonials.map((data, index) => (
-          <SwiperSlide key={index}>
-            <div className="flex flex-col justify-center items-center p-4 text-center border rounded-lg shadow-lg">
-              <p className="my-2">{data.quote}</p>
-              <p className="font-semibold">{data.name}</p>
-              <img
-                className="h-12 w-12 rounded-full my-2"
-                src={data.image}
-                alt={data.name}
-              />
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div className="w-full bg-gradient-to-br from-blue-50 via-white to-gray-50 py-16 px-5">
+      <div className="max-w-7xl mx-auto">
+
+        <Swiper
+          modules={[Autoplay]} 
+          spaceBetween={20}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+          }}
+          className="pb-12"
+        >
+          {testimonials.map((data, index) => (
+            <SwiperSlide key={index}>
+              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full flex flex-col">
+
+                <div className="text-blue-600 mb-4">
+                  <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                  </svg>
+                </div>
+
+                <p className="text-gray-700 mb-6 flex-grow leading-relaxed">
+                  "{data.quote}"
+                </p>
+
+                <div className="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
+                  <img
+                    className="h-14 w-14 rounded-full object-cover ring-2 ring-blue-100"
+                    src={data.image}
+                    alt={data.name}
+                    onError={(e) => {
+                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name)}&background=3B82F6&color=fff&size=200`;
+                    }}
+                  />
+                  <div>
+                    <p className="font-bold text-gray-900">{data.name}</p>
+                    <p className="text-sm text-gray-600">{data.role}</p>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 }

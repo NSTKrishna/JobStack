@@ -15,7 +15,7 @@ app.use(corsMiddleware);
 const routes = require("./routes/mainRoute.js");
 app.use('/api', routes);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

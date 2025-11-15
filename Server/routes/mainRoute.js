@@ -12,9 +12,9 @@ const showCompanyRoute = require('./company/showCompany.Route.js');
 router.use('/jobs',showJobsRoute);
 router.use('/companies',showCompanyRoute);
 router.use('/profile',protectedRoute);
-router.use('/dashboard',companyDashboard);
+router.use('/Company_dashboard',companyDashboard);
 router.use('/auth',userAuth);
 router.use('/auth',companyAuth);
-router.use('/dashboard',userDashboard);
+router.use('/User_dashboard',userDashboard);
 
 module.exports = router;
