@@ -1,5 +1,5 @@
 import HeroSection from "./Hero_Section/Hero_Section";
-import Jobs from "./Job_Section/Job";
+import Jobs from "./Job_Section/Jobs";
 
 function Landings() {
     return (

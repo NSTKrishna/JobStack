@@ -15,7 +15,7 @@ import CompanyPost from "./Components/Dashboard/Company/post";
 import CompanyProfile from "./Components/Dashboard/Company/profile";
 import StudentDashboardHeader from "./Components/Dashboard/Nav_Student/StudentDashboard";
 import CompanyDashboardHeader from "./Components/Dashboard/Nav_Company/CompanyDashboard";
-import CompanyApplication from "./Components/Dashboard/Company/application";
+import CompanyApplication from "./Components/Dashboard/Company/apply";
 import LoginStudent from "./Components/Auth_Page/Login";
 import { ScrollToTop } from "./Components/Effects/Marquee";
 import { Outlet } from "react-router-dom";
