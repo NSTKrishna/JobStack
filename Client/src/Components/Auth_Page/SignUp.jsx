@@ -60,12 +60,12 @@ function SignUpPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 flex items-center justify-center p-4 py-12">
-      {/* Background Decorations */}
+      
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
       <div className="absolute bottom-20 right-10 w-72 h-72 bg-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
 
       <div className="w-full max-w-lg relative">
-        {/* Logo/Brand */}
+
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="bg-gradient-to-br from-blue-600 to-gray-600 p-3 rounded-xl">
@@ -80,10 +80,9 @@ function SignUpPage() {
           </p>
         </div>
 
-        {/* Signup Card */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Role Selection */}
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 I am a:
@@ -118,7 +117,6 @@ function SignUpPage() {
               </div>
             </div>
 
-            {/* Full Name / HR Name */}
             <div>
               <label
                 htmlFor="fullName"
@@ -148,7 +146,6 @@ function SignUpPage() {
               </div>
             </div>
 
-            {/* College Name / Company Name */}
             <div>
               <label
                 htmlFor="organizationName"
@@ -184,7 +181,6 @@ function SignUpPage() {
               </div>
             </div>
 
-            {/* Enrollment ID / CIN ID */}
             <div>
               <label
                 htmlFor="idNumber"
@@ -236,7 +232,6 @@ function SignUpPage() {
               </div>
             </div>
 
-            {/* Email */}
             <div>
               <label
                 htmlFor="email"
@@ -268,7 +263,6 @@ function SignUpPage() {
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <label
                 htmlFor="password"
@@ -308,7 +302,6 @@ function SignUpPage() {
               </p>
             </div>
 
-            {/* Terms & Conditions */}
             <div className="flex items-start">
               <input
                 type="checkbox"
@@ -335,7 +328,6 @@ function SignUpPage() {
               </label>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
@@ -345,7 +337,6 @@ function SignUpPage() {
             </button>
           </form>
 
-          {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
@@ -357,7 +348,6 @@ function SignUpPage() {
             </div>
           </div>
 
-          {/* Social Signup */}
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
@@ -394,7 +384,6 @@ function SignUpPage() {
             </button>
           </div>
 
-          {/* Login Link */}
           <p className="text-center text-sm text-gray-600 mt-6">
             Already have an account?{" "}
             <Link

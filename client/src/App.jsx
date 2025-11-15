@@ -17,11 +17,13 @@ import StudentDashboardHeader from "./Components/Dashboard/Nav_Student/StudentDa
 import CompanyDashboardHeader from "./Components/Dashboard/Nav_Company/CompanyDashboard";
 import CompanyApplication from "./Components/Dashboard/Company/application";
 import LoginStudent from "./Components/Auth_Page/Login";
+import { ScrollToTop } from "./Components/Effects/Marquee";
 import { Outlet } from "react-router-dom";
 
 function MainLayout({ children }) {
   return (
     <div>
+      <ScrollToTop />
       <Navbar />
       {children}
       <FooterApp />
@@ -32,6 +34,7 @@ function MainLayout({ children }) {
 function StudentDashboardLayout() {
   return (
     <div>
+      <ScrollToTop />
       <StudentDashboardHeader />
       <Outlet />
     </div>
@@ -41,6 +44,7 @@ function StudentDashboardLayout() {
 function CompanyDashboardLayout() {
   return (
     <div>
+      <ScrollToTop />
       <CompanyDashboardHeader />
       <Outlet />
     </div>

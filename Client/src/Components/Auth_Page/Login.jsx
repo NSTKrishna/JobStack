@@ -55,12 +55,12 @@ function LoginCompany() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 flex items-center justify-center p-4">
-      {/* Background Decorations */}
+      
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
       <div className="absolute top-40 right-10 w-72 h-72 bg-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
 
       <div className="w-full max-w-md relative">
-        {/* Logo/Brand */}
+
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="bg-gradient-to-br from-blue-600 to-gray-600 p-3 rounded-xl">
@@ -73,9 +73,8 @@ function LoginCompany() {
           <p className="text-gray-600">Sign in to continue to JobStack</p>
         </div>
 
-        {/* Login Card */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 p-8">
-          {/* Role Selection */}
+
           <div className="flex gap-3 mb-6">
             <button
               type="button"
@@ -104,7 +103,6 @@ function LoginCompany() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Email Field */}
             <div>
               <label
                 htmlFor="email"
@@ -130,7 +128,6 @@ function LoginCompany() {
               </div>
             </div>
 
-            {/* Password Field */}
             <div>
               <label
                 htmlFor="password"
@@ -167,7 +164,6 @@ function LoginCompany() {
               </div>
             </div>
 
-            {/* Remember & Forgot */}
             <div className="flex items-center justify-between">
               <label htmlFor="remember-me" className="flex items-center">
                 <input
@@ -186,14 +182,12 @@ function LoginCompany() {
               </Link>
             </div>
 
-            {/* Error Message */}
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
                 {error}
               </div>
             )}
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isLoading}
@@ -213,7 +207,6 @@ function LoginCompany() {
             </button>
           </form>
 
-          {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
@@ -225,7 +218,6 @@ function LoginCompany() {
             </div>
           </div>
 
-          {/* Social Login */}
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
@@ -262,7 +254,6 @@ function LoginCompany() {
             </button>
           </div>
 
-          {/* Sign Up Link */}
           <p className="text-center text-sm text-gray-600 mt-6">
             Don't have an account?{" "}
             <Link
@@ -274,7 +265,6 @@ function LoginCompany() {
           </p>
         </div>
 
-        {/* Footer */}
         <p className="text-center text-sm text-gray-500 mt-8">
           By signing in, you agree to our{" "}
           <Link to="#" className="text-blue-600 hover:text-blue-700">

@@ -1,6 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules"; 
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const logos = [
   {
@@ -53,62 +55,62 @@ const testimonials = [
   {
     quote:
       "Using this platform has transformed our hiring process. We've found top talent quickly and efficiently.",
-    name: "Khuswant Rajat Kevish",
+    name: "Andrew Smith",
     role: "Software Engineer",
     image: "https://randomuser.me/api/portraits/men/1.jpg",
   },
   {
     quote:
-      "Using this platform has transformed our hiring process. We've found top talent quickly and efficiently.",
-    name: "Khuswant Rajat Kevish",
-    role: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+      "I am amazed by the quality of candidates we've attracted through this platform. It's a game-changer for our recruitment.",
+    name: "Donald Johnson",
+    role: "Data Analyst",
+    image: "https://randomuser.me/api/portraits/men/2.jpg",
   },
   {
     quote:
-      "Using this platform has transformed our hiring process. We've found top talent quickly and efficiently.",
-    name: "Khuswant Rajat Kevish",
-    role: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+      "This platform has revolutionized how we connect with candidates. The quality of applicants has significantly improved.",
+    name: "Emily Davis",
+    role: "Data Scientist",
+    image: "https://randomuser.me/api/portraits/men/3.jpg",
   },
   {
     quote:
-      "Using this platform has transformed our hiring process. We've found top talent quickly and efficiently.",
-    name: "Khuswant Rajat Kevish",
-    role: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+      "I got my dream job through this platform! The application process was smooth, and the support team was fantastic.",
+    name: "Michael Brown",
+    role: "Devops Engineer",
+    image: "https://randomuser.me/api/portraits/men/4.jpg",
   },
   {
     quote:
-      "Using this platform has transformed our hiring process. We've found top talent quickly and efficiently.",
-    name: "Khuswant Rajat Kevish",
-    role: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+      "The intuitive design and powerful features of this platform have made our recruitment process seamless and effective.",
+    name: "Sarah Wilson",
+    role: "SWE Intern",
+    image: "https://randomuser.me/api/portraits/men/5.jpg",
   },
   {
     quote:
-      "Using this platform has transformed our hiring process. We've found top talent quickly and efficiently.",
-    name: "Khuswant Rajat Kevish",
+      "I highly recommend this platform to any company looking to enhance their hiring process. It's efficient and user-friendly.",
+    name: "Lorraine Taylor",
     role: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    image: "https://randomuser.me/api/portraits/women/6.jpg",
   },
   {
     quote:
-      "Using this platform has transformed our hiring process. We've found top talent quickly and efficiently.",
-    name: "Khuswant Rajat Kevish",
-    role: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+      "Getting hired through this platform was a breeze. The job matches were spot on, and I felt supported throughout the process.",
+    name: "Krishna Gehlot",
+    role: "Quant Developer",
+    image: "https://randomuser.me/api/portraits/men/10.jpg",
   },
   {
     quote:
-      "Using this platform has transformed our hiring process. We've found top talent quickly and efficiently.",
-    name: "Khuswant Rajat Kevish",
+      "Finally, a platform that understands both employers and job seekers. Highly efficient and effective!",
+    name: "Jean Paul",
     role: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    image: "https://randomuser.me/api/portraits/men/9.jpg",
   },
 ];
 
-export default function Marquee() {
+export function Marquee() {
   return (
     <div className="relative w-full overflow-hidden bg-white py-10">
       <div className="flex animate-marquee whitespace-nowrap">
@@ -156,7 +158,7 @@ export function Testimonials() {
                 </div>
 
                 <p className="text-gray-700 mb-6 flex-grow leading-relaxed">
-                  "{data.quote}"
+                  {data.quote}
                 </p>
 
                 <div className="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
@@ -180,4 +182,14 @@ export function Testimonials() {
       </div>
     </div>
   );
+}
+
+export function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
 }

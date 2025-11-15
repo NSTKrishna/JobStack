@@ -1,4 +1,5 @@
 import {Testimonials} from "../../Effects/Marquee";
+import { Link } from "react-router-dom";
 import { MapPin, Briefcase, Clock, ArrowRight, Bookmark } from "lucide-react";
 
 function Jobs() {
@@ -128,19 +129,19 @@ function Jobs() {
                 </span>
               ))}
             </div>
-            <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+            <Link to={`/Job_page`} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 group-hover:scale-105">
               Apply Now
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
           </div>
         ))}
       </div>
 
       <div className="text-center mb-20">
-        <button className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold border-2 border-gray-200 rounded-full hover:border-blue-600 hover:shadow-xl transition-all duration-300">
+        <Link to="/Job_page" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold border-2 border-gray-200 rounded-full hover:border-blue-600 hover:shadow-xl transition-all duration-300">
           View All Jobs
           <ArrowRight className="h-5 w-5" />
-        </button>
+        </Link>
       </div>
 
       <div className="Testimonials text-center px-6 py-16 bg-gradient-to-br from-blue-50 to-gray-50 rounded-3xl mx-6 md:mx-10 lg:mx-20">

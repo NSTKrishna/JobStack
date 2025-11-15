@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Briefcase, Search, Building2, Menu, X } from "lucide-react";
 import { useState } from "react";
+import logo from "../../../public/logo.png";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,17 +10,20 @@ function Navbar() {
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo */}
+
           <Link to="/" className="flex items-center gap-2 group">
             <div className="bg-gradient-to-br from-blue-600 to-gray-600 p-2 rounded-xl group-hover:shadow-lg transition-shadow">
-              <Briefcase className="h-6 w-6 text-white" />
+              <img
+                src={logo}
+                alt="JobStack Logo"
+                className="h-8 w-8 object-contain"
+              />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-gray-700 bg-clip-text text-transparent">
               JobStack
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <ul className="hidden md:flex items-center space-x-8">
             <li>
               <Link
@@ -41,7 +45,6 @@ function Navbar() {
             </li>
           </ul>
 
-          {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
               className="text-gray-700 hover:text-blue-600 px-4 py-2 font-medium transition-colors"
@@ -57,7 +60,6 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -70,7 +72,6 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 animate-fade-in">
             <ul className="space-y-2">

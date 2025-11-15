@@ -10,22 +10,21 @@ import {
   Instagram,
   ArrowRight,
 } from "lucide-react";
+import logo from "../../../public/logo.png";
 
 function FooterApp() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-gray-300">
-      {/* Decorative Top Border */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-gray-600 to-blue-600"></div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="bg-gradient-to-br from-blue-600 to-gray-600 p-2 rounded-xl">
-                <Briefcase className="h-6 w-6 text-white" />
+                <img src={logo} alt="JobStack Logo" className="h-6 w-6" />
               </div>
               <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-gray-400 bg-clip-text text-transparent">
                 JobStack
@@ -67,7 +66,6 @@ function FooterApp() {
             </div>
           </div>
 
-          {/* For Job Seekers */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               For Job Seekers
@@ -112,7 +110,6 @@ function FooterApp() {
             </ul>
           </div>
 
-          {/* For Employers */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               For Employers
@@ -157,7 +154,6 @@ function FooterApp() {
             </ul>
           </div>
 
-          {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">
               Contact Us
@@ -193,7 +189,6 @@ function FooterApp() {
           </div>
         </div>
 
-        {/* Newsletter Section */}
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 mb-12 border border-white/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
@@ -220,7 +215,6 @@ function FooterApp() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
@@ -244,7 +238,6 @@ function FooterApp() {
         </div>
       </div>
 
-      {/* Background Decorations */}
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50"></div>
     </footer>
   );
