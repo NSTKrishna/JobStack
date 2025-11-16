@@ -1,7 +1,7 @@
 const cors = require("cors");
 
 const corsMiddleware = cors({
-  origin: `http://localhost:5173`,
+  origin: `https://job-stack-teal.vercel.app`,
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 });
