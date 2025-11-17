@@ -2,8 +2,10 @@ import axios from "axios";
 import { useAuthStore } from "./store";
 
 // Create axios instance with default config
+const VITE_API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+
 export const api = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}/api`,
+  baseURL: VITE_API_URL,
   timeout: 10000,
   withCredentials: true, // Important: This allows cookies to be sent with requests
   headers: {
