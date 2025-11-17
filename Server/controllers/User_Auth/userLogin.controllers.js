@@ -20,21 +20,28 @@ const UserLogin = async (req, res) => {
     }
     const comparePassword = await bcrypt.compare(password, user.password);
 
-
     if (!comparePassword) {
       return res.status(401).json({
         message: "Invalid email or password",
       });
     }
 
-    const token = setUser(user, "student");
+    const token = setUser(user, "user");
     res.cookie("jwt", token, {
-      maxAge: 60 * 1000, // 1 minute
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      httpOnly: true,
+      sameSite: "lax",
     });
 
     return res.status(200).json({
       message: "Login successful",
-      user,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        cvUrl: user.cvUrl,
+        cvFileName: user.cvFileName,
+      },
       token,
       role: "job_seeker",
     });

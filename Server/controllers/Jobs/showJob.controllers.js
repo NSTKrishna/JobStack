@@ -58,13 +58,9 @@ const ShowJobsId = async (req, res) => {
 
 const ShowCompanyJobs = async (req, res) => {
   try {
-    const companyId = req.user?.id;
+    const companyId = req.user.id;
 
-    if (!companyId) {
-      return res.status(401).json({
-        message: "Unauthorized - Company not authenticated",
-      });
-    }
+    console.log("ShowCompanyJobs - Company ID:", companyId);
 
     const jobs = await prisma.job.findMany({
       where: { companyId: companyId },

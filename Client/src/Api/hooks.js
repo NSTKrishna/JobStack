@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore, useJobStore, useApplicationStore } from "./store";
-import { authAPI, jobAPI, applicationAPI, profileAPI } from "./api";
+import { authAPI, jobAPI, applicationAPI, profileAPI, companyAPI } from "./api";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -360,4 +360,27 @@ export const useUpdateJob = () => {
   };
 
   return { handleUpdateJob, loading, error };
+};
+
+export const useFetchCompanyOverview = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [overview, setOverview] = useState(null);
+
+  const fetchOverview = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await companyAPI.getCompanyOverview();
+      setOverview(data);
+      return data;
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to fetch overview");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { fetchOverview, overview, loading, error };
 };

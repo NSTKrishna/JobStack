@@ -3,7 +3,13 @@ const prisma = require("../../db/config");
 const Overview = async (req, res) => {
     try 
     {
-        const Active_jobs = await prisma.job.count()
+        const jobs = await prisma.job.findMany({
+            include : {
+                company : true
+            }
+        })
+        const Active_jobs = jobs.length;
+        
         const Active_applications = await prisma.applications.findMany({
             include : {
                 job : true
@@ -17,7 +23,7 @@ const Overview = async (req, res) => {
 
         const monthly_applications = await prisma.applications.count({
             where : {
-                createdAt : {
+                appliedAt : {
                     gte : curr_mon,
                     lt : last_mon
                 }

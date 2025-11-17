@@ -215,4 +215,10 @@ export const companyAPI = {
     const response = await api.get(`/companies/${id}`);
     return response.data;
   },
+
+  // Get company dashboard overview
+  getCompanyOverview: async () => {
+    const response = await api.get("/Company_dashboard/overview");
+    return response.data;
+  },
 };

@@ -15,6 +15,12 @@ export const useAuthStore = create(
         false,
         "auth/logout"
       ),
+    updateUser: (userData) =>
+      set(
+        (state) => ({ user: { ...state.user, ...userData } }),
+        false,
+        "auth/updateUser"
+      ),
   }))
 );
 
