@@ -8,7 +8,7 @@ const UserLogin = async (req, res) => {
 
     const user = await prisma.user.findUnique({
       where: {
-        Email: email,
+        email: email,
       },
     });
 
@@ -18,7 +18,7 @@ const UserLogin = async (req, res) => {
         message: "Invalid email or password",
       });
     }
-    const comparePassword = await bcrypt.compare(password, user.Password);
+    const comparePassword = await bcrypt.compare(password, user.password);
 
 
     if (!comparePassword) {

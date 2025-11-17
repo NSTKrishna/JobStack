@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore,useJobStore,useApplicationStore } from "./store";
-import { authAPI,jobAPI,applicationAPI,profileAPI } from "./api";
+import { useAuthStore, useJobStore, useApplicationStore } from "./store";
+import { authAPI, jobAPI, applicationAPI, profileAPI } from "./api";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -40,9 +40,7 @@ export const useSignup = () => {
     try {
       const data = await authAPI.signup(userData);
       login(data.user, data.token);
-      navigate(
-        userData.role === "company" ? "/login" : "/login"
-      );
+      navigate(userData.role === "company" ? "/login" : "/login");
       return data;
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
@@ -75,7 +73,7 @@ export const useFetchJobs = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await jobAPI.getAllJobs(filters);
+      const data = await jobAPI.getJobById(filters);
       setJobs(data.jobs || data);
       return data;
     } catch (err) {
@@ -247,7 +245,7 @@ export const useUpdateProfileCompany = () => {
   };
 
   return { handleUpdateProfile, loading, error };
-}
+};
 
 export const useUploadCV = () => {
   const [loading, setLoading] = useState(false);
@@ -270,4 +268,96 @@ export const useUploadCV = () => {
   };
 
   return { handleUploadCV, loading, error };
+};
+
+export const useCreateJob = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const addJob = useJobStore((state) => state.addJob);
+
+  const handleCreateJob = async (jobData) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await jobAPI.createJob(jobData);
+      addJob(data.job || data);
+      return data;
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to create job");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { handleCreateJob, loading, error };
+};
+
+export const useFetchCompanyJobs = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const setCompanyJobs = useJobStore((state) => state.setCompanyJobs);
+
+  const fetchCompanyJobs = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await jobAPI.getCompanyJobs();
+      setCompanyJobs(data.jobs || data);
+      return data;
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to fetch jobs");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { fetchCompanyJobs, loading, error };
+};
+
+export const useDeleteJob = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const deleteJob = useJobStore((state) => state.deleteJob);
+
+  const handleDeleteJob = async (jobId) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await jobAPI.deleteJob(jobId);
+      deleteJob(jobId);
+      return true;
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to delete job");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { handleDeleteJob, loading, error };
+};
+
+export const useUpdateJob = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const updateJob = useJobStore((state) => state.updateJob);
+
+  const handleUpdateJob = async (jobId, jobData) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await jobAPI.updateJob(jobId, jobData);
+      updateJob(jobId, data.job || data);
+      return data;
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to update job");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { handleUpdateJob, loading, error };
 };

@@ -2,16 +2,16 @@ const prisma = require("../../db/config");
 
 const Profile = async (req, res) => {
   try {
-    const { Company_Name, website, Location, Description, Size ,Industry } =
+    const { companyName, website, location, description, size, industry } =
       req.body;
     const user = await prisma.profile_companies.create({
       data: {
-        Company_Name,
+        companyName,
         website,
-        Location,
-        Description,
-        Size,
-        Industry,
+        location,
+        description,
+        size,
+        industry,
         company: { connect: { id: req.user.id } },
       },
     });

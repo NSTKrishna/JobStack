@@ -32,11 +32,11 @@ const UserSignup = async (req, res) => {
 
     const user = await prisma.user.create({
       data: {
-        Name: fullName,
-        Email: email,
-        Password: hashedPassword,
-        Enrollment: idNumber,
-        CollegeId: College.id,
+        name: fullName,
+        email: email,
+        password: hashedPassword,
+        enrollment: idNumber,
+        collegeId: College.id,
       },
     });
 

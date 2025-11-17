@@ -14,7 +14,7 @@ export const useAuthStore = create(
         { user: null, token: null, isAuthenticated: false },
         false,
         "auth/logout"
-      )
+      ),
   }))
 );
 
@@ -24,15 +24,28 @@ export const useJobStore = create(
     (set) => ({
       jobs: [],
       savedJobs: [],
+      companyJobs: [],
       loading: false,
       error: null,
       setJobs: (jobs) => set({ jobs }, false, "jobs/setJobs"),
+      setCompanyJobs: (companyJobs) =>
+        set({ companyJobs }, false, "jobs/setCompanyJobs"),
       addJob: (job) =>
-        set((state) => ({ jobs: [...state.jobs, job] }), false, "jobs/addJob"),
+        set(
+          (state) => ({
+            jobs: [...state.jobs, job],
+            companyJobs: [...state.companyJobs, job],
+          }),
+          false,
+          "jobs/addJob"
+        ),
       updateJob: (id, jobData) =>
         set(
           (state) => ({
             jobs: state.jobs.map((job) =>
+              job.id === id ? { ...job, ...jobData } : job
+            ),
+            companyJobs: state.companyJobs.map((job) =>
               job.id === id ? { ...job, ...jobData } : job
             ),
           }),
@@ -43,6 +56,7 @@ export const useJobStore = create(
         set(
           (state) => ({
             jobs: state.jobs.filter((job) => job.id !== id),
+            companyJobs: state.companyJobs.filter((job) => job.id !== id),
           }),
           false,
           "jobs/deleteJob"
@@ -67,6 +81,7 @@ export const useJobStore = create(
         ),
       setLoading: (loading) => set({ loading }, false, "jobs/setLoading"),
       setError: (error) => set({ error }, false, "jobs/setError"),
+      clearError: () => set({ error: null }, false, "jobs/clearError"),
     }),
     {
       name: "job-storage",

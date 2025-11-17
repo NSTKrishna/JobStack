@@ -13,7 +13,7 @@ const CompanySignup = async (req, res) => {
       email,
       password,
     });
-    
+
     if (!valid) {
       return res.status(400).json({ message: "Invalid data" });
     }
@@ -21,7 +21,11 @@ const CompanySignup = async (req, res) => {
     // understand this logic properly
     const existingCompany = await prisma.company.findFirst({
       where: {
-        OR: [{ Email : email }, { CIN: idNumber }, { Company: organizationName }],
+        OR: [
+          { email: email },
+          { cin: idNumber },
+          { company: organizationName },
+        ],
       },
     });
 
@@ -32,19 +36,19 @@ const CompanySignup = async (req, res) => {
       });
     }
 
-    Company = await prisma.company.create({
+    const company = await prisma.company.create({
       data: {
-        Name: fullName,
-        Company: organizationName,
-        CIN: idNumber,
-        Email: email,
-        Password: await bcrypt.hash(password, 10),
+        name: fullName,
+        company: organizationName,
+        cin: idNumber,
+        email: email,
+        password: await bcrypt.hash(password, 10),
       },
     });
 
     res
       .status(201)
-      .json({ message: "Company registered successfully", Company });
+      .json({ message: "Company registered successfully", company });
   } catch (err) {
     res.status(500).json({
       message: {

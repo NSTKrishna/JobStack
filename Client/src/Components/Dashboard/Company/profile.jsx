@@ -5,12 +5,12 @@ function CompanyProfile() {
   const { handleUpdateProfile, loading, error } = useUpdateProfileCompany();
 
   const [companyData, setCompanyData] = useState({
-    Company_Name: "Acme Corp",
+    companyName: "Acme Corp",
     website: "https://acme.com",
-    Description: "Leading technology company",
-    Size: "201-500",
-    Industry: "technology",
-    Location: "San Francisco, CA",
+    description: "Leading technology company",
+    size: "201-500",
+    industry: "technology",
+    location: "San Francisco, CA",
   });
 
   const [successMessage, setSuccessMessage] = useState("");

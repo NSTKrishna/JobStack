@@ -1,8 +1,14 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const {
+  ShowAllJobs,
+  ShowJobsId,
+} = require("../../controllers/Jobs/showJob.controllers");
 
-const {ShowJobs} = require('../../controllers/Jobs/showJob.controllers');
+// Get all jobs
+router.get("/", ShowAllJobs);
 
-router.get('/jobs',ShowJobs);
+// Get job by ID
+router.get("/:id", ShowJobsId);
 
 module.exports = router;

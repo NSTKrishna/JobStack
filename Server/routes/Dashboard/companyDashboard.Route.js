@@ -19,6 +19,11 @@ const {
   Overview,
 } = require("../../controllers/Company_Dashboard/overview.controllers");
 
+const {
+  ShowCompanyJobs,
+  DeleteJob,
+} = require("../../controllers/Jobs/showJob.controllers.js");
+
 router.get(
   "/overview",
   restrictToLoggedIn,
@@ -31,6 +36,14 @@ router.post(
   RoleBasedAccess("Company"),
   PostJob
 );
+
+router.get(
+  "/jobs",
+  restrictToLoggedIn,
+  RoleBasedAccess("Company"),
+  ShowCompanyJobs
+);
+
 router.post(
   "/profile",
   restrictToLoggedIn,
@@ -42,6 +55,14 @@ router.get(
   restrictToLoggedIn,
   RoleBasedAccess("Company"),
   Application
+);
+
+// Delete job
+router.delete(
+  "/jobs/:id",
+  restrictToLoggedIn,
+  RoleBasedAccess("Company"),
+  DeleteJob
 );
 
 module.exports = router;

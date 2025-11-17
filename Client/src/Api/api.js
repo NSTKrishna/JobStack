@@ -1,19 +1,18 @@
 import axios from "axios";
 import { useAuthStore } from "./store";
 
-// Create axios instance with default config
-const VITE_API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const VITE_API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export const api = axios.create({
   baseURL: VITE_API_URL,
   timeout: 10000,
-  withCredentials: true, // Important: This allows cookies to be sent with requests
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Request interceptor - add auth token
 api.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;
@@ -27,16 +26,12 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor - handle errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Only redirect if user is already authenticated (token expired)
-      // Don't redirect on login failures
       const isAuthenticated = useAuthStore.getState().isAuthenticated;
       if (isAuthenticated) {
-        // Token expired or invalid
         useAuthStore.getState().logout();
         window.location.href = "/login";
       }
@@ -45,9 +40,7 @@ api.interceptors.response.use(
   }
 );
 
-// Auth API
 export const authAPI = {
-  // User login
   login: async (email, password, role = "job_seeker") => {
     const endpoint =
       role === "company" ? "auth/login/company" : "auth/login/user";
@@ -55,7 +48,6 @@ export const authAPI = {
     return response.data;
   },
 
-  // User signup
   signup: async (userData) => {
     const endpoint =
       userData.role === "company" ? "auth/signup/company" : "auth/signup/user";
@@ -63,13 +55,10 @@ export const authAPI = {
     return response.data;
   },
 
-  // Logout
   logout: async () => {
-    // Clear local storage
     useAuthStore.getState().logout();
   },
 
-  // Verify CIN (for company signup)
   verifyCIN: async (cin) => {
     const response = await api.post("/company/verify-cin", { cin });
     return response.data;
@@ -78,122 +67,133 @@ export const authAPI = {
 
 // Job API
 export const jobAPI = {
-  // Get all jobs
+  // Get all jobs (public)
   getAllJobs: async (filters = {}) => {
     const response = await api.get("/jobs", { params: filters });
     return response.data;
   },
 
-  // Get job by ID
+  // Get job by ID (public)
   getJobById: async (id) => {
     const response = await api.get(`/jobs/${id}`);
     return response.data;
   },
 
-  // Create job (company only)
+  // Get company's own jobs (protected - company only)
+  getCompanyJobs: async () => {
+    const response = await api.get("/Company_dashboard/jobs");
+    return response.data;
+  },
+
+  // Create job (protected - company only)
   createJob: async (jobData) => {
-    const response = await api.post("/company/jobs", jobData);
+    const response = await api.post("/Company_dashboard/post_job", jobData);
     return response.data;
   },
 
-  // Update job (company only)
+  // Update job (protected - company only)
   updateJob: async (id, jobData) => {
-    const response = await api.put(`/company/jobs/${id}`, jobData);
+    const response = await api.put(`/Company_dashboard/jobs/${id}`, jobData);
     return response.data;
   },
 
-  // Delete job (company only)
+  // Delete job (protected - company only)
   deleteJob: async (id) => {
-    const response = await api.delete(`/company/jobs/${id}`);
+    const response = await api.delete(`/Company_dashboard/jobs/${id}`);
     return response.data;
   },
 
-  // Save/bookmark job
+  // Save/bookmark job (protected - user only)
   saveJob: async (jobId) => {
-    const response = await api.post("/user/save", { jobId });
+    const response = await api.post("/User_dashboard/save", { jobId });
     return response.data;
   },
 
-  // Unsave job
+  // Unsave job (protected - user only)
   unsaveJob: async (jobId) => {
-    const response = await api.delete(`/user/save/${jobId}`);
+    const response = await api.delete(`/User_dashboard/save/${jobId}`);
     return response.data;
   },
 
-  // Get saved jobs
+  // Get saved jobs (protected - user only)
   getSavedJobs: async () => {
-    const response = await api.get("/user/saved-jobs");
+    const response = await api.get("/User_dashboard/saved-jobs");
     return response.data;
   },
 };
 
 // Application API
 export const applicationAPI = {
-  // Apply to job
+  // Apply to job (protected - user only)
   applyToJob: async (jobId, applicationData) => {
-    const response = await api.post(`/user/apply/${jobId}`, applicationData);
+    const response = await api.post(
+      `/User_dashboard/apply/${jobId}`,
+      applicationData
+    );
     return response.data;
   },
 
-  // Get user's applications
+  // Get user's applications (protected - user only)
   getMyApplications: async () => {
-    const response = await api.get("/user/applications");
+    const response = await api.get("/User_dashboard/applications");
     return response.data;
   },
 
-  // Get applications for a job (company only)
+  // Get applications for a job (protected - company only)
   getJobApplications: async (jobId) => {
-    const response = await api.get(`/company/jobs/${jobId}/applications`);
+    const response = await api.get(
+      `/Company_dashboard/jobs/${jobId}/applications`
+    );
     return response.data;
   },
 
-  // Update application status (company only)
+  // Update application status (protected - company only)
   updateApplicationStatus: async (applicationId, status) => {
     const response = await api.put(
-      `/company/applications/${applicationId}/status`,
+      `/Company_dashboard/applications/${applicationId}/status`,
       { status }
     );
     return response.data;
   },
 
-  // Get all company applications (company only)
+  // Get all company applications (protected - company only)
   getAllCompanyApplications: async () => {
-    const response = await api.get("/company/application");
+    const response = await api.get("/Company_dashboard/applications");
     return response.data;
   },
 };
 
 // Profile API
 export const profileAPI = {
-  // Get user profile
+  // Get user profile (protected - user only)
   getUserProfile: async () => {
-    const response = await api.get("/user/profile");
+    const response = await api.get("/User_dashboard/profile");
     return response.data;
   },
 
-  // Update user profile
+  // Update user profile (protected - user only)
   updateUserProfile: async (profileData) => {
-    const response = await api.put("/user/profile", profileData);
+    const response = await api.put("/User_dashboard/profile", profileData);
     return response.data;
   },
 
-  // Get company profile
+  // Get company profile (protected - company only)
   getCompanyProfile: async () => {
-    const response = await api.get("/company/profile");
+    const response = await api.get("/Company_dashboard/profile");
     return response.data;
   },
 
-  // Update company profile
+  // Update company profile (protected - company only)
   updateCompanyProfile: async (profileData) => {
     const response = await api.post("/Company_dashboard/profile", profileData);
     return response.data;
   },
 
-  // Upload CV
+  // Upload CV (protected - user only)
   uploadCV: async (file) => {
     const formData = new FormData();
     formData.append("cv", file);
-    const response = await api.post("/user/cv", formData, {
+    const response = await api.post("/User_dashboard/cv", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
