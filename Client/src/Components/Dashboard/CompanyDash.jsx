@@ -8,7 +8,7 @@ function CompanyDash() {
 
   useEffect(() => {
     fetchOverview();
-  }, []);
+  }, [fetchOverview]);
 
   const stats = {
     activeJobs: overview?.Active_jobs || 0,

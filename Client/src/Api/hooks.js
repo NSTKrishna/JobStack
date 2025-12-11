@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore, useJobStore, useApplicationStore ,useCompanyStore } from "./store";
 import { authAPI, jobAPI, applicationAPI, profileAPI, companyAPI } from "./api";
@@ -254,7 +254,7 @@ export const useFetchCompanyJobs = () => {
   const [error, setError] = useState(null);
   const setCompanyJobs = useJobStore((state) => state.setCompanyJobs);
 
-  const fetchCompanyJobs = async () => {
+  const fetchCompanyJobs = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -267,7 +267,7 @@ export const useFetchCompanyJobs = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setCompanyJobs]);
 
   return { fetchCompanyJobs, loading, error };
 };
@@ -300,7 +300,7 @@ export const useFetchCompanyOverview = () => {
   const [error, setError] = useState(null);
   const [overview, setOverview] = useState(null);
 
-  const fetchOverview = async () => {
+  const fetchOverview = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -313,7 +313,7 @@ export const useFetchCompanyOverview = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return { fetchOverview, overview, loading, error };
 };
@@ -323,7 +323,7 @@ export const useFetchCompanies = () => {
   const [error, setError] = useState(null);
   const setCompanies = useCompanyStore((state) => state.setCompanies);
 
-  const fetchCompanies = async () => {
+  const fetchCompanies = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -336,7 +336,7 @@ export const useFetchCompanies = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setCompanies]);
 
   return { fetchCompanies, loading, error };
 }

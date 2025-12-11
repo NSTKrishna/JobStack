@@ -33,7 +33,7 @@ function CompanyPost() {
 
   useEffect(() => {
     fetchCompanyJobs();
-  }, []);
+  }, [fetchCompanyJobs]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

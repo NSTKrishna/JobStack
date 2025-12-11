@@ -11,7 +11,7 @@ function CompanyView() {
 
   useEffect(() => {
     fetchCompanies();
-  }, []);
+  }, [fetchCompanies]);
 
   const getColorForIndex = (index) => {
     const colors = [
