@@ -10,7 +10,7 @@ app.use(cors({
   origin: [
     "http://localhost:3000",
     "http://localhost:5173",
-    /.*vercel\.app$/
+    "https://job-stack-teal.vercel.app/"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
