@@ -2,13 +2,7 @@ const { getUser } = require("../utils/auth.js");
 
 async function restrictToLoggedIn(req, res, next) {
   try {
-    let userJWT = req.cookies.jwt;
-
-    // Fallback to Bearer token if cookie is missing
-    if (!userJWT && req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-      userJWT = req.headers.authorization.split(' ')[1];
-    }
-
+    const userJWT = req.cookies.jwt;
     if (!userJWT) {
       return res.status(401).json({ message: "Unauthorized: No token" });
     }
