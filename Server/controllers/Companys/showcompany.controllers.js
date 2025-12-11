@@ -3,21 +3,11 @@ const prisma = require("../../db/config");
 const ShowCompany = async (req, res) => {
   try 
   {
-    const companies = await prisma.company.findMany();
-    const show = await prisma.show_Company.create({
-      data : {
-        id: show.id,
-        companyName: companies.companyName,
-        location: companies.location,
-        industry: companies.industry,
-        size: companies.size,
-        website: companies.website,
-        description: companies.description
-      }
-    })
+    const companies = await prisma.Profile_companies.findMany();
+    console.log(companies);
     res.status(200).json({
       message: "Companies Retrieved Successfully",
-      show
+      companies
     })
   } catch (err) {
     return res.status(500).json({

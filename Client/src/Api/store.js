@@ -29,7 +29,6 @@ export const useJobStore = create(
   devtools(
     (set) => ({
       jobs: [],
-      savedJobs: [],
       companyJobs: [],
       loading: false,
       error: null,
@@ -45,19 +44,6 @@ export const useJobStore = create(
           false,
           "jobs/addJob"
         ),
-      updateJob: (id, jobData) =>
-        set(
-          (state) => ({
-            jobs: state.jobs.map((job) =>
-              job.id === id ? { ...job, ...jobData } : job
-            ),
-            companyJobs: state.companyJobs.map((job) =>
-              job.id === id ? { ...job, ...jobData } : job
-            ),
-          }),
-          false,
-          "jobs/updateJob"
-        ),
       deleteJob: (id) =>
         set(
           (state) => ({
@@ -66,24 +52,6 @@ export const useJobStore = create(
           }),
           false,
           "jobs/deleteJob"
-        ),
-      saveJob: (jobId) =>
-        set(
-          (state) => ({
-            savedJobs: state.savedJobs.includes(jobId)
-              ? state.savedJobs
-              : [...state.savedJobs, jobId],
-          }),
-          false,
-          "jobs/saveJob"
-        ),
-      unsaveJob: (jobId) =>
-        set(
-          (state) => ({
-            savedJobs: state.savedJobs.filter((id) => id !== jobId),
-          }),
-          false,
-          "jobs/unsaveJob"
         ),
       setLoading: (loading) => set({ loading }, false, "jobs/setLoading"),
       setError: (error) => set({ error }, false, "jobs/setError"),
@@ -123,6 +91,15 @@ export const useApplicationStore = create(
       ),
     setLoading: (loading) => set({ loading }, false, "applications/setLoading"),
     setError: (error) => set({ error }, false, "applications/setError"),
+  }))
+);
+
+export const useCompanyStore = create(
+  devtools((set) => ({
+    companies: [],
+    setCompanies: (companies) => {
+      set({ companies }, false, "companies/setCompanies");
+    }
   }))
 );
 

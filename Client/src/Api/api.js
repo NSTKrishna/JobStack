@@ -91,35 +91,11 @@ export const jobAPI = {
     return response.data;
   },
 
-  // Update job (protected - company only)
-  updateJob: async (id, jobData) => {
-    const response = await api.put(`/Company_dashboard/jobs/${id}`, jobData);
-    return response.data;
-  },
-
   // Delete job (protected - company only)
   deleteJob: async (id) => {
     const response = await api.delete(`/Company_dashboard/jobs/${id}`);
     return response.data;
-  },
-
-  // Save/bookmark job (protected - user only)
-  saveJob: async (jobId) => {
-    const response = await api.post("/User_dashboard/save", { jobId });
-    return response.data;
-  },
-
-  // Unsave job (protected - user only)
-  unsaveJob: async (jobId) => {
-    const response = await api.delete(`/User_dashboard/save/${jobId}`);
-    return response.data;
-  },
-
-  // Get saved jobs (protected - user only)
-  getSavedJobs: async () => {
-    const response = await api.get("/User_dashboard/saved-jobs");
-    return response.data;
-  },
+  }
 };
 
 // Application API
@@ -206,7 +182,7 @@ export const profileAPI = {
 export const companyAPI = {
   // Get all companies
   getAllCompanies: async () => {
-    const response = await api.get("/companies");
+    const response = await api.get("/companies/show");
     return response.data;
   },
 

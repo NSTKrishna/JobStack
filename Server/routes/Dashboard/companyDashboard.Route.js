@@ -19,7 +19,6 @@ const {
   DeleteJob,
 } = require("../../controllers/Jobs/showJob.controllers.js");
 
-// All routes here are already protected by mainRoute middleware
 router.get("/overview", Overview);
 router.post("/post_job", PostJob);
 router.get("/jobs", ShowCompanyJobs);

@@ -11,7 +11,6 @@ function StudentDashboardHeader() {
 
   const navItems = [
     { name: "Overview", path: "/StudentDashboard" },
-    { name: "Saved Jobs", path: "/StudentDashboard/saved" },
     { name: "Applications", path: "/StudentDashboard/applications" },
     { name: "CV", path: "/StudentDashboard/cv" },
     { name: "Company Profile", path: "/StudentDashboard/profile" },

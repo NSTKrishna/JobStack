@@ -22,7 +22,7 @@ async function restrictToLoggedIn(req, res, next) {
 
 function RoleBasedAccess(role) {
   return (req, res, next) => {
-    // Case-insensitive role comparison
+    
     const userRole = req.user.role?.toLowerCase();
     const requiredRole = role?.toLowerCase();
 

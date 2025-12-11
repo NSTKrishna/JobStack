@@ -6,7 +6,6 @@ import Job from "./Components/Job_page/Job.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUpPage from "./Components/Auth_Page/Signup.jsx";
 import StudentDash from "./Components/Dashboard/StudentDash";
-import SavedJobs from "./Components/Dashboard/Student/savejob.jsx";
 import MyApplications from "./Components/Dashboard/Student/application.jsx";
 import MyCV from "./Components/Dashboard/Student/cv.jsx";
 import Profile from "./Components/Dashboard/Student/Userprofile.jsx";
@@ -100,7 +99,6 @@ function App() {
 
           <Route path="/StudentDashboard" element={<StudentDashboardLayout />}>
             <Route index element={<StudentDash />} />
-            <Route path="saved" element={<SavedJobs />} />
             <Route path="applications" element={<MyApplications />} />
             <Route path="cv" element={<MyCV />} />
             <Route path="profile" element={<Profile />} />
