@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAuthStore } from "./store";
 
-const VITE_API_URL = "https://jobstack-63f2.onrender.com";
+const VITE_API_URL = "https://jobstack-63f2.onrender.com/api";
 
 export const api = axios.create({
   baseURL: VITE_API_URL,
@@ -94,7 +94,7 @@ export const jobAPI = {
   deleteJob: async (id) => {
     const response = await api.delete(`/Company_dashboard/jobs/${id}`);
     return response.data;
-  }
+  },
 };
 
 // Application API
