@@ -12,6 +12,8 @@ const corsOptions = {
     "http://localhost:3000",
     "http://localhost:5173",
     "https://job-stack-1xzgmsnni-nstkrishnas-projects.vercel.app",
+    "https://job-stack-teal.vercel.app",
+    "https://job-stack.vercel.app",
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
