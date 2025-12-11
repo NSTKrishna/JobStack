@@ -97,18 +97,24 @@ function App() {
             }
           />
 
-          <Route path="/StudentDashboard" element={<StudentDashboardLayout />}>
-            <Route index element={<StudentDash />} />
-            <Route path="applications" element={<MyApplications />} />
-            <Route path="cv" element={<MyCV />} />
-            <Route path="profile" element={<Profile />} />
+          {/* Protected Student Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/StudentDashboard" element={<StudentDashboardLayout />}>
+              <Route index element={<StudentDash />} />
+              <Route path="applications" element={<MyApplications />} />
+              <Route path="cv" element={<MyCV />} />
+              <Route path="profile" element={<Profile />} />
+            </Route>
           </Route>
 
-          <Route path="/CompanyDashboard" element={<CompanyDashboardLayout />}>
-            <Route index element={<CompanyDash />} />
-            <Route path="job-postings" element={<CompanyPost />} />
-            <Route path="applications" element={<CompanyApplication />} />
-            <Route path="company-profile" element={<CompanyProfile />} />
+          {/* Protected Company Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/CompanyDashboard" element={<CompanyDashboardLayout />}>
+              <Route index element={<CompanyDash />} />
+              <Route path="job-postings" element={<CompanyPost />} />
+              <Route path="applications" element={<CompanyApplication />} />
+              <Route path="company-profile" element={<CompanyProfile />} />
+            </Route>
           </Route>
 
           <Route path="/test-api" element={<APITestDashboard />} />

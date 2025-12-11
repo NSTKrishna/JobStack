@@ -1,25 +1,36 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
+import { persist } from "zustand/middleware";
+
 // Auth Store
 export const useAuthStore = create(
-  devtools((set) => ({
-    user: null,
-    isAuthenticated: false,
-
-    login: (user) =>
-      set({ user, isAuthenticated: true }, false, "auth/login"),
-
-    logout: () =>
-      set({ user: null, isAuthenticated: false }, false, "auth/logout"),
-
-    updateUser: (userData) =>
-      set(
-        (state) => ({ user: { ...state.user, ...userData } }),
-        false,
-        "auth/updateUser"
-      ),
-  }))
+  devtools(
+    persist(
+      (set) => ({
+        user: null,
+        token: null,
+        isAuthenticated: false,
+        login: (user, token) =>
+          set({ user, token, isAuthenticated: true }, false, "auth/login"),
+        logout: () =>
+          set(
+            { user: null, token: null, isAuthenticated: false },
+            false,
+            "auth/logout"
+          ),
+        updateUser: (userData) =>
+          set(
+            (state) => ({ user: { ...state.user, ...userData } }),
+            false,
+            "auth/updateUser"
+          ),
+      }),
+      {
+        name: "auth-storage", // unique name for localStorage key
+      }
+    )
+  )
 );
 
 // Job Store

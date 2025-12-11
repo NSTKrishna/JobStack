@@ -2,7 +2,13 @@ const { getUser } = require("../utils/auth.js");
 
 async function restrictToLoggedIn(req, res, next) {
   try {
-    const userJWT = req.cookies.jwt;
+    let userJWT = req.cookies.jwt;
+
+    // Fallback to Bearer token if cookie is missing
+    if (!userJWT && req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+      userJWT = req.headers.authorization.split(' ')[1];
+    }
+
     if (!userJWT) {
       return res.status(401).json({ message: "Unauthorized: No token" });
     }
@@ -22,7 +28,7 @@ async function restrictToLoggedIn(req, res, next) {
 
 function RoleBasedAccess(role) {
   return (req, res, next) => {
-    
+
     const userRole = req.user.role?.toLowerCase();
     const requiredRole = role?.toLowerCase();
 
