@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useAuthStore } from "./store";
 
-const VITE_API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const VITE_API_URL = "https://jobstack-63f2.onrender.com";
 
 export const api = axios.create({
   baseURL: VITE_API_URL,
