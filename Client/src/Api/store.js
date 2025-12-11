@@ -5,16 +5,14 @@ import { devtools } from "zustand/middleware";
 export const useAuthStore = create(
   devtools((set) => ({
     user: null,
-    token: null,
     isAuthenticated: false,
-    login: (user, token) =>
-      set({ user, token, isAuthenticated: true }, false, "auth/login"),
+
+    login: (user) =>
+      set({ user, isAuthenticated: true }, false, "auth/login"),
+
     logout: () =>
-      set(
-        { user: null, token: null, isAuthenticated: false },
-        false,
-        "auth/logout"
-      ),
+      set({ user: null, isAuthenticated: false }, false, "auth/logout"),
+
     updateUser: (userData) =>
       set(
         (state) => ({ user: { ...state.user, ...userData } }),
