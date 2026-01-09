@@ -16,7 +16,6 @@ import {
 import { useSignup } from "../../Api/hooks";
 
 function SignUpPage() {
-
   const { handleSignup } = useSignup();
 
   const [formData, setFormData] = useState({
@@ -41,14 +40,49 @@ function SignUpPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Client-side validation
+    if (!formData.fullName || formData.fullName.trim() === "") {
+      alert("Please enter your full name");
+      return;
+    }
+    if (!formData.organizationName || formData.organizationName.trim() === "") {
+      alert(
+        `Please enter ${
+          formData.role === "job_seeker" ? "college" : "company"
+        } name`
+      );
+      return;
+    }
+    if (!formData.idNumber || formData.idNumber.trim() === "") {
+      alert(
+        `Please enter ${
+          formData.role === "job_seeker" ? "enrollment ID" : "CIN ID"
+        }`
+      );
+      return;
+    }
+    if (!formData.email || formData.email.trim() === "") {
+      alert("Please enter your email");
+      return;
+    }
+    if (formData.password.length < 6) {
+      alert("Password must be at least 6 characters");
+      return;
+    }
+
     console.log("Form submitted:", formData);
     try {
       await handleSignup(formData);
-    }
-    catch (err){ 
+    } catch (err) {
       console.error("Signup error:", err);
+      const errorMessage =
+        err.response?.data?.message ||
+        err.message ||
+        "Signup failed. Please try again.";
+      alert(errorMessage);
     }
-  }
+  };
 
   const handleVerifyCIN = () => {
     // Simulate CIN verification
@@ -60,12 +94,10 @@ function SignUpPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 flex items-center justify-center p-4 py-12">
-      
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
       <div className="absolute bottom-20 right-10 w-72 h-72 bg-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
 
       <div className="w-full max-w-lg relative">
-
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="bg-gradient-to-br from-blue-600 to-gray-600 p-3 rounded-xl">
@@ -82,7 +114,6 @@ function SignUpPage() {
 
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 I am a:

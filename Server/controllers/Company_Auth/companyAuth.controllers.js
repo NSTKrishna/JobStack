@@ -4,7 +4,31 @@ const { Validate } = require("../../utils/validator.js");
 
 const CompanySignup = async (req, res) => {
   try {
+    console.log("Company signup request received:", req.body);
+
     const { fullName, organizationName, idNumber, email, password } = req.body;
+
+    if (!fullName || fullName.trim() === "") {
+      return res.status(400).json({ message: "HR name is required" });
+    }
+    if (!organizationName || organizationName.trim() === "") {
+      return res.status(400).json({ message: "Company name is required" });
+    }
+    if (!idNumber || idNumber.trim() === "") {
+      return res.status(400).json({ message: "CIN ID is required" });
+    }
+    if (!email || email.trim() === "") {
+      return res.status(400).json({ message: "Email is required" });
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+    if (!password || password.length < 6) {
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 6 characters" });
+    }
 
     const valid = Validate({
       fullName,
@@ -15,10 +39,9 @@ const CompanySignup = async (req, res) => {
     });
 
     if (!valid) {
-      return res.status(400).json({ message: "Invalid data" });
+      return res.status(400).json({ message: "Invalid data format" });
     }
 
-    // understand this logic properly
     const existingCompany = await prisma.company.findFirst({
       where: {
         OR: [
@@ -30,10 +53,15 @@ const CompanySignup = async (req, res) => {
     });
 
     if (existingCompany) {
-      return res.status(400).json({
-        error:
-          "Company already registered with same email, CIN, or organization name",
-      });
+      let errorMessage = "Company already registered";
+      if (existingCompany.email === email) {
+        errorMessage = "Company with this email already exists";
+      } else if (existingCompany.cin === idNumber) {
+        errorMessage = "This CIN ID is already registered";
+      } else if (existingCompany.company === organizationName) {
+        errorMessage = "Company with this name already exists";
+      }
+      return res.status(400).json({ message: errorMessage });
     }
 
     const company = await prisma.company.create({
@@ -46,15 +74,25 @@ const CompanySignup = async (req, res) => {
       },
     });
 
-    res
-      .status(201)
-      .json({ message: "Company registered successfully", company });
+    const { password: _, ...companyWithoutPassword } = company;
+
+    res.status(201).json({
+      message: "Company registered successfully",
+      company: companyWithoutPassword,
+    });
   } catch (err) {
+    console.error("Company signup error:", err);
+
+    if (err.code === "P2002") {
+      const field = err.meta?.target?.[0] || "field";
+      return res.status(400).json({
+        message: `This ${field} is already registered`,
+      });
+    }
+
     res.status(500).json({
-      message: {
-        error: "Internal server error by company",
-        details: err.message,
-      },
+      error: "Internal server error",
+      message: err.message,
     });
   }
 };
