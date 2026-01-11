@@ -8,22 +8,65 @@ const {
   RoleBasedAccess,
 } = require("../../middlewares/auth.Middleware.js");
 const {
-  Profile,
+  updateProfile,
+  getProfile
 } = require("../../controllers/User_Dashboard/profile.controllers");
+const {
+  applyToJob,
+  getMyApplications,
+  getApplicationById,
+  withdrawApplication,
+} = require("../../controllers/User_Dashboard/application.controllers");
+
+router.get(
+  "/profile",
+  restrictToLoggedIn,
+  RoleBasedAccess("user"),
+  getProfile
+);
 
 router.post(
   "/profile",
   restrictToLoggedIn,
-  RoleBasedAccess("student"),
-  Profile
+  RoleBasedAccess("user"),
+  updateProfile
 );
 
 router.post(
   "/cv",
   restrictToLoggedIn,
-  RoleBasedAccess("student"),
+  RoleBasedAccess("user"),
   UploadMiddleware,
   UploadCV
+);
+
+// Application Routes
+router.post(
+  "/apply/:jobId",
+  restrictToLoggedIn,
+  RoleBasedAccess("user"),
+  applyToJob
+);
+
+router.get(
+  "/applications",
+  restrictToLoggedIn,
+  RoleBasedAccess("user"),
+  getMyApplications
+);
+
+router.get(
+  "/applications/:id",
+  restrictToLoggedIn,
+  RoleBasedAccess("user"),
+  getApplicationById
+);
+
+router.delete(
+  "/applications/:id",
+  restrictToLoggedIn,
+  RoleBasedAccess("user"),
+  withdrawApplication
 );
 
 module.exports = router;

@@ -26,7 +26,14 @@ function RoleBasedAccess(role) {
     const userRole = req.user.role?.toLowerCase();
     const requiredRole = role?.toLowerCase();
 
+    console.log("RoleBasedAccess Debug:", {
+      userRole,
+      requiredRole,
+      user: req.user
+    });
+
     if (userRole !== requiredRole) {
+      console.log("Access Denied: Role mismatch");
       return res.status(403).json({
         message: "Forbidden: Access is denied",
         debug: { userRole: req.user.role, requiredRole: role },

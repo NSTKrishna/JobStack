@@ -28,8 +28,24 @@ model User {
   collegeId    Int?
   password     String
   createdAt    DateTime       @default(now())
+  cvUrl        String?
+  cvFileName   String?
+  profile      Profile_user?
   college      College?       @relation(fields: [collegeId], references: [id])
   applications Applications[]
+}
+
+model Profile_user {
+  id          Int     @id @default(autoincrement())
+  userId      Int     @unique
+  firstName   String?
+  lastName    String?
+  email       String?
+  phone       String?
+  city        String?
+  experience  String?
+  summary     String?
+  user        User    @relation(fields: [userId], references: [id])
 }
 
 model Company {
@@ -41,6 +57,7 @@ model Company {
   company  String             @unique
   profile  Profile_companies?
   jobs     Job[]
+  applications Applications[]
 }
 
 model Job {
@@ -58,16 +75,6 @@ model Job {
   applications   Applications[]
 }
 
-model Profile_users {
-  id         Int    @id @default(autoincrement())
-  First_Name String @db.VarChar(50)
-  Last_Name  String @db.VarChar(50)
-  Phone      String @unique
-  City       String @db.VarChar(50)
-  Experience String @db.VarChar(100)
-  Summary    String @db.VarChar(500)
-}
-
 model Profile_companies {
   id          Int     @id @default(autoincrement())
   companyId   Int     @unique
@@ -80,44 +87,27 @@ model Profile_companies {
   company     Company @relation(fields: [companyId], references: [id])
 }
 
+enum ApplicationStatus {
+  PENDING
+  SHORTLISTED
+  REJECTED
+  HIRED
+}
+
 model Applications {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  jobId     Int
-  status    String   @default("pending")
-  appliedAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  job       Job      @relation(fields: [jobId], references: [id])
-}
+  id          Int      @id @default(autoincrement())
 
-model Profile_user {
-  id         Int    @id @default(autoincrement())
-  firstName  String @db.VarChar(50)
-  lastName   String @db.VarChar(50)
-  email      String @unique
-  phone      String @unique
-  city       String @db.VarChar(50)
-  experience String @db.VarChar(100)
-  summary    String @db.VarChar(500)
-}
+  userId      Int
+  jobId       Int
+  companyId   Int
 
-model Show_Company {
-  id          Int    @id @default(autoincrement())
-  companyName String @db.VarChar(100)
-  website     String @db.VarChar(100)
-  location    String @db.VarChar(100)
-  description String @db.VarChar(500)
-  size        String @db.VarChar(50)
-  industry    String @db.VarChar(100)
-}
+  status      ApplicationStatus @default(PENDING)
+  coverLetter String?           @db.Text
+  appliedAt   DateTime          @default(now())
 
-model Show_Job {
-  id          Int    @id @default(autoincrement())
-  jobTitle    String
-  jobType     String
-  department  String
-  location    String @db.VarChar(100)
-  salary      Int
-  description String @db.VarChar(500)
-  requirement String @db.VarChar(500)
+  user        User     @relation(fields: [userId], references: [id])
+  job         Job      @relation(fields: [jobId], references: [id])
+  company     Company  @relation(fields: [companyId], references: [id])
+
+  @@unique([userId, jobId]) // student applies only once
 }

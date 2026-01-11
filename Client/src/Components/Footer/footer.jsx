@@ -162,27 +162,27 @@ function FooterApp() {
               <li className="flex items-start gap-3 text-gray-400">
                 <Mail className="h-5 w-5 mt-0.5 text-blue-400" />
                 <a
-                  href="mailto:support@jobstack.com"
+                  href="mailto:jobstack@gmail.com"
                   className="hover:text-blue-400 transition-colors"
                 >
-                  support@jobstack.com
+                  jobstack@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3 text-gray-400">
                 <Phone className="h-5 w-5 mt-0.5 text-blue-400" />
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+919876543210"
                   className="hover:text-blue-400 transition-colors"
                 >
-                  +1 (234) 567-8900
+                  +91 9876543210
                 </a>
               </li>
               <li className="flex items-start gap-3 text-gray-400">
                 <MapPin className="h-5 w-5 mt-0.5 text-blue-400" />
                 <span>
-                  123 Tech Street
+                  Kothrud, Pune
                   <br />
-                  San Francisco, CA 94102
+                  Maharashtra
                 </span>
               </li>
             </ul>

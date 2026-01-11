@@ -32,7 +32,7 @@ router.use(
 router.use(
   "/User_dashboard",
   restrictToLoggedIn,
-  RoleBasedAccess("student"),
+  RoleBasedAccess("user"),
   userDashboard
 );
 

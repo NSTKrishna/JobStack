@@ -136,18 +136,6 @@ export const applicationAPI = {
 
 // Profile API
 export const profileAPI = {
-  // Get user profile (protected - user only)
-  getUserProfile: async () => {
-    const response = await api.get("/User_dashboard/profile");
-    return response.data;
-  },
-
-  // Update user profile (protected - user only)
-  updateUserProfile: async (profileData) => {
-    const response = await api.put("/User_dashboard/profile", profileData);
-    return response.data;
-  },
-
   // Get company profile (protected - company only)
   getCompanyProfile: async () => {
     const response = await api.get("/Company_dashboard/profile");
@@ -169,6 +157,21 @@ export const profileAPI = {
         "Content-Type": "multipart/form-data",
       },
     });
+    return response.data;
+  },
+};
+
+// User API
+export const userAPI = {
+  // Get user profile (protected - user only)
+  getProfile: async () => {
+    const response = await api.get("/User_dashboard/profile");
+    return response.data;
+  },
+
+  // Update user profile (protected - user only)
+  updateProfile: async (profileData) => {
+    const response = await api.post("/User_dashboard/profile", profileData);
     return response.data;
   },
 };

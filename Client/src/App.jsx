@@ -18,7 +18,6 @@ import CompanyApplication from "./Components/Dashboard/Company/apply.jsx";
 import LoginStudent from "./Components/Auth_Page/Login.jsx";
 import { ScrollToTop } from "./Components/Effects/Marquee.jsx";
 import { Outlet } from "react-router-dom";
-import APITestDashboard from "./Components/Test/APITestDashboard.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 
 function MainLayout({ children }) {
@@ -107,8 +106,6 @@ function App() {
               <Route path="profile" element={<Profile />} />
             </Route>
           </Route>
-
-          {/* Protected Company Routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/CompanyDashboard" element={<CompanyDashboardLayout />}>
               <Route index element={<CompanyDash />} />
@@ -118,7 +115,6 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="/test-api" element={<APITestDashboard />} />
         </Routes>
       </Router>
     </div>

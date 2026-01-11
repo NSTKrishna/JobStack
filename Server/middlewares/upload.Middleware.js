@@ -2,13 +2,13 @@ const multer = require("multer");
 const path = require("path");
 const uploadPath = path.join(__dirname, "../uploads");
 const storage = multer.diskStorage({
-  destination: 
-    function(req, res, cb) {
+  destination:
+    function (req, res, cb) {
       cb(null, uploadPath);
     },
-    
-  filename: 
-    function(req, file, cb) {
+
+  filename:
+    function (req, file, cb) {
       const uniqueName = Date.now() + "-" + file.originalname;
       cb(null, uniqueName);
     },
@@ -16,8 +16,9 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
   const allowed = /pdf|doc|docx/;
-  const exist = path.extname(file.originalname).toLocaleLowerCase();
-  if (allowed.test(exist)) {
+  // Remove the leading dot using substring(1)
+  const ext = path.extname(file.originalname).toLowerCase().substring(1);
+  if (allowed.test(ext)) {
     cb(null, true);
   } else {
     cb(new Error("Only pdf, doc, docx files are allowed"));

@@ -1,9 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import {useLogout} from "../../../Api/hooks.js";
+import { useLogout } from "../../../Api/hooks.js";
+import { useAuthStore } from "../../../Api/store";
 
 function CompanyDashboardHeader() {
   const location = useLocation();
-  const {handleLogout} = useLogout();
+  const { handleLogout } = useLogout();
+  const user = useAuthStore((state) => state.user);
+
   const navItems = [
     { name: 'Overview', path: '/CompanyDashboard' },
     { name: 'Job Postings', path: '/CompanyDashboard/job-postings' },
@@ -42,8 +45,8 @@ function CompanyDashboardHeader() {
               </svg>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Company Dashboard</h1>
-              <p className="text-sm text-gray-500">Company</p>
+              <h1 className="text-2xl font-bold text-gray-900">{user?.name || user?.company || "Company Dashboard"}</h1>
+              <p className="text-sm text-gray-500">{user?.email || "Company"}</p>
             </div>
           </div>
           <button className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors" onClick={handleLogout}>
@@ -72,11 +75,10 @@ function CompanyDashboardHeader() {
             <Link
               key={item.path}
               to={item.path}
-              className={`pb-4 px-2 font-medium transition-colors border-b-2 ${
-                isActive(item.path)
+              className={`pb-4 px-2 font-medium transition-colors border-b-2 ${isActive(item.path)
                   ? 'text-gray-900 border-gray-900'
                   : 'text-gray-500 hover:text-gray-700 border-transparent'
-              }`}
+                }`}
             >
               {item.name}
             </Link>

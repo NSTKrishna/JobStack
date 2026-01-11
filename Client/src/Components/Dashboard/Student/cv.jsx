@@ -122,8 +122,8 @@ function MyCV() {
               {loading
                 ? "Uploading..."
                 : user?.cvUrl
-                ? "Update CV"
-                : "Upload CV"}
+                  ? "Update CV"
+                  : "Upload CV"}
             </button>
             <p className="text-sm text-gray-400 mt-3">
               Supported formats: PDF, DOC, DOCX (Max 5MB)

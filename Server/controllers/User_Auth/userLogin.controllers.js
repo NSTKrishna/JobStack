@@ -27,11 +27,13 @@ const UserLogin = async (req, res) => {
     }
 
     const token = setUser(user, "user");
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("jwt", token, {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      secure: true,              // required for vercel https
-      sameSite: "none",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
     });
 
     return res.status(200).json({

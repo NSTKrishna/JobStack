@@ -1,40 +1,42 @@
-prisma = require("../../db/config");
+const prisma = require("../../db/config");
 
 const Application = async (req, res) => {
   try {
-    const { userId, jobId } = req.body;
+    const companyId = req.user.id;
+    console.log(`[Backend] Fetching applications for Company ID: ${companyId}`);
 
-    const exist = await prisma.applications.findFirst({
-      where: {
-        userId: userId,
-        jobId: jobId,
-      },
-    });
-
-    if (exist) {
-      return res.status(400).json({
-        message: "You have already applied for this job",
-      });
-    }
-
-    const application = await prisma.Applications.create({
-      data: {
-        userId: userId,
-        jobId: jobId,
-      },
+    const applications = await prisma.applications.findMany({
+      where: { companyId: parseInt(companyId) },
       include: {
-        job: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            enrollment: true
+          }
+        },
+        job: {
+          select: {
+            id: true,
+            jobTitle: true
+          }
+        }
       },
+      orderBy: {
+        appliedAt: "desc"
+      }
     });
 
     return res.status(200).json({
-      message: "Application Submitted Successfully",
-      application,
+      total: applications.length,
+      applications
     });
   } catch (err) {
-    res.status(500).json({
-      message: "Internal Server Error",
-      err: err.message,
+    console.error("[Backend] Error fetching applications:", err);
+    return res.status(500).json({
+      message: "Internal server error",
+      error: err.message
     });
   }
 };

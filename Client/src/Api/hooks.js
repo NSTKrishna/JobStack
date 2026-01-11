@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore, useJobStore, useApplicationStore ,useCompanyStore } from "./store";
-import { authAPI, jobAPI, applicationAPI, profileAPI, companyAPI } from "./api";
+import { useAuthStore, useJobStore, useApplicationStore, useCompanyStore } from "./store";
+import { authAPI, jobAPI, applicationAPI, profileAPI, companyAPI, userAPI } from "./api";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -141,7 +141,7 @@ export const useFetchApplications = () => {
   const [error, setError] = useState(null);
   const setApplications = useApplicationStore((state) => state.setApplications);
 
-  const fetchApplications = async () => {
+  const fetchApplications = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -154,9 +154,30 @@ export const useFetchApplications = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setApplications]);
 
   return { fetchApplications, loading, error };
+};
+
+export const useFetchUserProfile = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchProfile = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await userAPI.getProfile();
+      return data;
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to fetch profile");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { fetchProfile, loading, error };
 };
 
 export const useUpdateProfileUser = () => {
@@ -168,7 +189,7 @@ export const useUpdateProfileUser = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await profileAPI.updateUserProfile(profileData);
+      const data = await userAPI.updateProfile(profileData);
       updateUser(data.user || data);
       return data;
     } catch (err) {
@@ -340,3 +361,28 @@ export const useFetchCompanies = () => {
 
   return { fetchCompanies, loading, error };
 }
+
+export const useFetchCompanyApplications = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const setCompanyApplications = useApplicationStore((state) => state.setCompanyApplications);
+
+  const fetchCompanyApplications = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await applicationAPI.getAllCompanyApplications();
+      // Handle both raw array and { applications: [] } format
+      const apps = data.applications || data;
+      setCompanyApplications(apps);
+      return apps;
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to fetch applications");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [setCompanyApplications]);
+
+  return { fetchCompanyApplications, loading, error };
+};

@@ -1,65 +1,45 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FolderClosed } from 'lucide-react';
-import { Heart } from 'lucide-react';
-import { Eye } from 'lucide-react';
-import { Video } from 'lucide-react';
-
+import { FolderClosed, Heart, Eye, Video } from 'lucide-react';
+import { useFetchApplications } from '../../Api/hooks';
+import { useApplicationStore } from '../../Api/store';
 
 function StudentDash() {
-  // Sample data - will be replaced with API data
+  const { fetchApplications, loading } = useFetchApplications();
+  const applications = useApplicationStore((state) => state.applications);
+
+  useEffect(() => {
+    fetchApplications();
+  }, []);
+
+  // Calculate Stats
+  const totalApplications = applications.length;
+  const interviews = applications.filter(app => app.status === 'SHORTLISTED').length;
+  const rejected = applications.filter(app => app.status === 'REJECTED').length;
+  // Placeholder for views/saved as we don't track them yet
+  const profileViews = 0;
+
   const stats = [
-    { label: 'Applications', value: 12, change: '+2 from last week', icon: <FolderClosed /> },
-    { label: 'Interviews', value: 8, change: '+1 from last week', icon: <Video /> },
-    { label: 'Saved Jobs', value: 24, change: '+8 from last week', icon: <Heart /> },
-    { label: 'Profile Views', value: 3, change: '+1 from last week', icon: <Eye /> },
+    { label: 'Applications', value: totalApplications, icon: <FolderClosed /> },
+    { label: 'Interviews', value: interviews, icon: <Video /> },
+    { label: 'Rejected', value: rejected, icon: <Heart className="text-red-500" /> }, // Replaced Saved Jobs for now or keep placeholder
+    { label: 'Profile Views', value: profileViews, icon: <Eye /> },
   ];
 
-  const recentApplications = [
-    {
-      id: 1,
-      position: 'Senior Frontend Developer',
-      company: 'TechCorp Inc.',
-      location: 'San Francisco, CA',
-      appliedDate: '2 days ago',
-      status: 'Under Review',
-      statusColor: 'bg-yellow-100 text-yellow-800',
-    },
-    {
-      id: 2,
-      position: 'Product Manager',
-      company: 'StartupXYZ',
-      location: 'Remote',
-      appliedDate: '1 week ago',
-      status: 'Interview Scheduled',
-      statusColor: 'bg-blue-100 text-blue-800',
-    },
-    {
-      id: 3,
-      position: 'UX Designer',
-      company: 'Design Studio',
-      location: 'New York, NY',
-      appliedDate: '2 weeks ago',
-      status: 'Rejected',
-      statusColor: 'bg-red-100 text-red-800',
-    },
-  ];
+  // Get recent 3 applications
+  const recentApplications = [...applications]
+    .sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt))
+    .slice(0, 3);
 
-  const savedJobs = [
-    {
-      id: 1,
-      position: 'Backend Engineer',
-      company: 'DataFlow Systems',
-      salary: '$110k - $150k',
-      postedDate: '3 days ago',
-    },
-    {
-      id: 2,
-      position: 'DevOps Engineer',
-      company: 'CloudTech',
-      salary: '$130k - $170k',
-      postedDate: '1 week ago',
-    },
-  ];
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'PENDING': return 'bg-yellow-100 text-yellow-800';
+      case 'SHORTLISTED': return 'bg-blue-100 text-blue-800';
+      case 'HIRED': return 'bg-green-100 text-green-800';
+      case 'REJECTED': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -70,10 +50,9 @@ function StudentDash() {
             <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-medium text-gray-600">{stat.label}</h3>
-                <span className="text-2xl">{stat.icon}</span>
+                <span className="text-2xl text-gray-400">{stat.icon}</span>
               </div>
               <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
-              <p className="text-xs text-gray-500">{stat.change}</p>
             </div>
           ))}
         </div>
@@ -87,46 +66,52 @@ function StudentDash() {
                 <p className="text-sm text-gray-500">Track the status of your job applications</p>
               </div>
 
-              <div className="space-y-4">
-                {recentApplications.map((application) => (
-                  <div
-                    key={application.id}
-                    className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-2">
-                          {application.position}
-                        </h3>
-                        <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                          <div className="flex items-center gap-1">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                            </svg>
-                            {application.company}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            {application.location}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            {application.appliedDate}
+              {loading ? (
+                <div className="text-center py-8 text-gray-500">Loading applications...</div>
+              ) : recentApplications.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">No applications yet. Start applying!</div>
+              ) : (
+                <div className="space-y-4">
+                  {recentApplications.map((application) => (
+                    <div
+                      key={application.id}
+                      className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-gray-900 mb-2">
+                            {application.job?.jobTitle || "Unknown Position"}
+                          </h3>
+                          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                            <div className="flex items-center gap-1">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                              </svg>
+                              {application.company?.name || "Unknown Company"}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                              {application.job?.location || "Location N/A"}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              {new Date(application.appliedAt).toLocaleDateString()}
+                            </div>
                           </div>
                         </div>
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(application.status)}`}>
+                          {application.status}
+                        </span>
                       </div>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${application.statusColor}`}>
-                        {application.status}
-                      </span>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
 
               <div className="mt-6 text-center">
                 <Link
@@ -174,35 +159,8 @@ function StudentDash() {
                 </Link>
               </div>
             </div>
-            
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <div className="mb-4">
-                <h2 className="text-xl font-bold text-gray-900 mb-1">Saved Jobs</h2>
-                <p className="text-sm text-gray-500">Jobs you've bookmarked for later</p>
-              </div>
 
-              <div className="space-y-3">
-                {savedJobs.map((job) => (
-                  <div key={job.id} className="border-b border-gray-200 pb-3 last:border-b-0 last:pb-0">
-                    <h3 className="font-semibold text-gray-900 text-sm mb-1">{job.position}</h3>
-                    <p className="text-xs text-gray-600 mb-1">{job.company}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-medium text-gray-900">{job.salary}</span>
-                      <span className="text-xs text-gray-500">{job.postedDate}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
 
-              <div className="mt-4 text-center">
-                <Link
-                  to="/StudentDashboard/saved"
-                  className="text-gray-900 font-medium hover:underline text-sm"
-                >
-                  View All Saved
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -1,11 +1,8 @@
 // Central exports for all API, stores, and hooks
 
 // Stores
-export { useAuthStore, selectUser, selectIsAuthenticated } from "./store";
-
-// Note: Job and Application stores are commented out in store.js
-// Uncomment them there first before exporting here:
-// useJobStore, useApplicationStore, selectSavedJobs, selectJobById
+// Stores
+export { useAuthStore, selectUser, selectIsAuthenticated, useJobStore, useApplicationStore, selectSavedJobs, selectJobById } from "./store";
 
 // API functions
 export {
@@ -24,10 +21,8 @@ export {
   useLogout,
   useFetchJobs,
   useAutoFetchJobs,
-  useSaveJob,
-  useUnsaveJob,
   useApplyToJob,
   useFetchApplications,
-  useUpdateProfile,
   useUploadCV,
+  useFetchCompanyApplications,
 } from "./hooks";

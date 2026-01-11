@@ -113,13 +113,6 @@ const DeleteJob = async (req, res) => {
       });
     }
 
-    // Optional: Verify job belongs to the company (if auth is implemented)
-    // if (companyId && job.companyId !== companyId) {
-    //   return res.status(403).json({
-    //     message: "You don't have permission to delete this job",
-    //   });
-    // }
-
     if (job.applications && job.applications.length > 0) {
       await prisma.applications.deleteMany({
         where: { jobId: parseInt(id) },
@@ -129,7 +122,6 @@ const DeleteJob = async (req, res) => {
       );
     }
 
-    // Now delete the job
     await prisma.job.delete({
       where: { id: parseInt(id) },
     });

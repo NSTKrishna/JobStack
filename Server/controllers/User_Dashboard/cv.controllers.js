@@ -22,6 +22,7 @@ const UploadCV = async (req, res) => {
       fileName: req.file.filename,
     });
   } catch (err) {
+    console.error("CV Upload Error:", err);
     res.status(500).json({ error: err.message });
   }
 };

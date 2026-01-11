@@ -1,10 +1,8 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-// Auth Store
 import { persist } from "zustand/middleware";
 
-// Auth Store
 export const useAuthStore = create(
   devtools(
     persist(
@@ -36,7 +34,6 @@ export const useAuthStore = create(
   )
 );
 
-// Job Store
 export const useJobStore = create(
   devtools(
     (set) => ({
@@ -75,14 +72,16 @@ export const useJobStore = create(
   )
 );
 
-// Application Store
 export const useApplicationStore = create(
   devtools((set) => ({
     applications: [],
+    companyApplications: [], // Added for company view
     loading: false,
     error: null,
     setApplications: (applications) =>
       set({ applications }, false, "applications/setApplications"),
+    setCompanyApplications: (companyApplications) =>
+      set({ companyApplications }, false, "applications/setCompanyApplications"),
     addApplication: (application) =>
       set(
         (state) => ({
@@ -95,6 +94,9 @@ export const useApplicationStore = create(
       set(
         (state) => ({
           applications: state.applications.map((app) =>
+            app.id === id ? { ...app, status } : app
+          ),
+          companyApplications: state.companyApplications.map((app) =>
             app.id === id ? { ...app, status } : app
           ),
         }),
@@ -115,7 +117,6 @@ export const useCompanyStore = create(
   }))
 );
 
-// Selectors (optional but recommended for better performance)
 export const selectUser = (state) => state.user;
 export const selectIsAuthenticated = (state) => state.isAuthenticated;
 
