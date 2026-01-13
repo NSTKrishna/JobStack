@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Briefcase, Search, Building2, Menu, X } from "lucide-react";
 import { useState } from "react";
-import logo from "../../../public/logo.png";
+import logo from "../../public/logo.png";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

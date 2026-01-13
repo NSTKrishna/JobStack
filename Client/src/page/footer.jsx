@@ -10,7 +10,7 @@ import {
   Instagram,
   ArrowRight,
 } from "lucide-react";
-import logo from "../../../public/logo.png";
+import logo from "../../public/logo.png";
 
 function FooterApp() {
   const currentYear = new Date().getFullYear();

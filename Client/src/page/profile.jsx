@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUpdateProfileCompany } from "../../../Api/hooks";
+import { useUpdateProfileCompany } from "../Api/hooks";
 
 function CompanyProfile() {
   const { handleUpdateProfile, loading, error } = useUpdateProfileCompany();

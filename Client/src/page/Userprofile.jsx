@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useFetchUserProfile, useUpdateProfileUser } from "../../../Api/hooks";
-import { useAuthStore } from "../../../Api/store";
+import { useFetchUserProfile, useUpdateProfileUser } from "../Api/hooks";
+import { useAuthStore } from "../Api/store";
 
 function Profile() {
   const { fetchProfile } = useFetchUserProfile();

@@ -7,8 +7,8 @@ import {
   Building2,
   FileText,
 } from "lucide-react";
-import { useFetchApplications } from "../../../Api/hooks";
-import { useApplicationStore } from "../../../Api/store";
+import { useFetchApplications } from "../Api/hooks";
+import { useApplicationStore } from "../Api/store";
 
 function MyApplications() {
   const [loading, setLoading] = useState(true);

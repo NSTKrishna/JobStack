@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, MapPin, Users, Globe, Building2, Briefcase } from "lucide-react";
-import { useCompanyStore } from "../../Api/store";
-import { useFetchCompanies } from "../../Api/hooks";
+import { useCompanyStore } from "../Api/store";
+import { useFetchCompanies } from "../Api/hooks";
 
 function CompanyView() {
   const [selectedCompany, setSelectedCompany] = useState(null);

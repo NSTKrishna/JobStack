@@ -10,9 +10,9 @@ import {
   CheckCircle2,
   Send,
 } from "lucide-react";
-import { jobAPI } from "../../Api/api";
-import { useJobStore, useAuthStore } from "../../Api/store";
-import { useApplyToJob } from "../../Api/hooks";
+import { jobAPI } from "../Api/api";
+import { useJobStore, useAuthStore } from "../Api/store";
+import { useApplyToJob } from "../Api/hooks";
 
 const Job = () => {
   const [searchQuery, setSearchQuery] = useState("");

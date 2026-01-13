@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { SquareUserRound } from "lucide-react";
 import { LogOut } from "lucide-react";
-import { useLogout } from "../../../Api/hooks";
-import { useAuthStore } from "../../../Api/store";
+import { useLogout } from "../Api/hooks";
+import { useAuthStore } from "../Api/store";
 
 function StudentDashboardHeader() {
   const { handleLogout } = useLogout();

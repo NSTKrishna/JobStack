@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { useUploadCV } from "../../../Api/hooks";
-import { useAuthStore } from "../../../Api/store";
+import { useUploadCV } from "../Api/hooks";
+import { useAuthStore } from "../Api/store";
 
 function MyCV() {
   const { handleUploadCV, loading, error } = useUploadCV();

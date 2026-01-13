@@ -21,15 +21,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Routes
 app.use("/api", mainRoute);
 
-// Test route
 app.get("/", (req, res) => {
   res.json({ message: "JobStack API is running" });
 });
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -37,6 +34,10 @@ app.use((err, req, res, next) => {
     error: err.message,
   });
 });
+
+app.get("/health",(req,res)=>{
+  res.status(200).send("OK");
+})
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

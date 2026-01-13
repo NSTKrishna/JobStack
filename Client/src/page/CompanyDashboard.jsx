@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { useLogout } from "../../../Api/hooks.js";
-import { useAuthStore } from "../../../Api/store";
+import { useLogout } from "../Api/hooks.js";
+import { useAuthStore } from "../Api/store.js";
 
 function CompanyDashboardHeader() {
   const location = useLocation();

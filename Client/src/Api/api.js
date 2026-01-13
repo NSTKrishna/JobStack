@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useAuthStore } from "./store";
 
-const VITE_API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const VITE_API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export const api = axios.create({
   baseURL: VITE_API_URL,
@@ -24,6 +25,15 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Handle Network Errors (Server Down)
+    if (!error.response) {
+      console.error(
+        "🚨 NETWORK ERROR: Cannot connect to server. Is it running?"
+      );
+      // You can optionally allow this to propagate or return a specific object
+    }
+
+    // Handle Authentication Errors
     if (error.response?.status === 401) {
       const isAuthenticated = useAuthStore.getState().isAuthenticated;
       if (isAuthenticated) {

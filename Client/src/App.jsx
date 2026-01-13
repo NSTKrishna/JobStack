@@ -1,24 +1,24 @@
-import Navbar from "./Components/Navbar/nav.jsx";
-import Landings from "./Components/Landing_page/Landing.jsx";
-import FooterApp from "./Components/Footer/footer.jsx";
-import CompanyView from "./Components/Company_page/Company.jsx";
-import Job from "./Components/Job_page/Job.jsx";
+import Navbar from "./page/nav.jsx";
+import Landings from "./page/Landing.jsx";
+import FooterApp from "./page/footer.jsx";
+import CompanyView from "./page/Company.jsx";
+import Job from "./page/Job.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignUpPage from "./Components/Auth_Page/Signup.jsx";
-import StudentDash from "./Components/Dashboard/StudentDash";
-import MyApplications from "./Components/Dashboard/Student/application.jsx";
-import MyCV from "./Components/Dashboard/Student/cv.jsx";
-import Profile from "./Components/Dashboard/Student/Userprofile.jsx";
-import CompanyDash from "./Components/Dashboard/CompanyDash.jsx";
-import CompanyPost from "./Components/Dashboard/Company/post.jsx";
-import CompanyProfile from "./Components/Dashboard/Company/profile.jsx";
-import StudentDashboardHeader from "./Components/Dashboard/Nav_Student/StudentDashboard.jsx";
-import CompanyDashboardHeader from "./Components/Dashboard/Nav_Company/CompanyDashboard.jsx";
-import CompanyApplication from "./Components/Dashboard/Company/apply.jsx";
-import LoginStudent from "./Components/Auth_Page/Login.jsx";
-import { ScrollToTop } from "./Components/Effects/Marquee.jsx";
+import SignUpPage from "./page/Signup.jsx";
+import StudentDash from "./page/StudentDash";
+import MyApplications from "./page/application.jsx";
+import MyCV from "./page/cv.jsx";
+import Profile from "./page/Userprofile.jsx";
+import CompanyDash from "./page/CompanyDash.jsx";
+import CompanyPost from "./page/post.jsx";
+import CompanyProfile from "./page/profile.jsx";
+import StudentDashboardHeader from "./page/StudentDashboard.jsx";
+import CompanyDashboardHeader from "./page/CompanyDashboard.jsx";
+import CompanyApplication from "./page/apply.jsx";
+import LoginStudent from "./page/Login.jsx";
+import { ScrollToTop } from "./page/Marquee.jsx";
 import { Outlet } from "react-router-dom";
-import ProtectedRoute from "./Components/ProtectedRoute.jsx";
+import ProtectedRoute from "./page/ProtectedRoute.jsx";
 
 function MainLayout({ children }) {
   return (

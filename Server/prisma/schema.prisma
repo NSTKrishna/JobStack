@@ -28,24 +28,8 @@ model User {
   collegeId    Int?
   password     String
   createdAt    DateTime       @default(now())
-  cvUrl        String?
-  cvFileName   String?
-  profile      Profile_user?
   college      College?       @relation(fields: [collegeId], references: [id])
   applications Applications[]
-}
-
-model Profile_user {
-  id          Int     @id @default(autoincrement())
-  userId      Int     @unique
-  firstName   String?
-  lastName    String?
-  email       String?
-  phone       String?
-  city        String?
-  experience  String?
-  summary     String?
-  user        User    @relation(fields: [userId], references: [id])
 }
 
 model Company {
@@ -95,19 +79,18 @@ enum ApplicationStatus {
 }
 
 model Applications {
-  id          Int      @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
 
-  userId      Int
-  jobId       Int
-  companyId   Int
+  userId     Int
+  jobId      Int
+  companyId  Int
 
-  status      ApplicationStatus @default(PENDING)
-  coverLetter String?           @db.Text
-  appliedAt   DateTime          @default(now())
+  status     ApplicationStatus @default(PENDING)
+  appliedAt  DateTime @default(now())
 
-  user        User     @relation(fields: [userId], references: [id])
-  job         Job      @relation(fields: [jobId], references: [id])
-  company     Company  @relation(fields: [companyId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+  job        Job      @relation(fields: [jobId], references: [id])
+  company    Company  @relation(fields: [companyId], references: [id])
 
   @@unique([userId, jobId]) // student applies only once
 }

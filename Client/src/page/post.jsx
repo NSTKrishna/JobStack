@@ -12,8 +12,8 @@ import {
   useCreateJob,
   useFetchCompanyJobs,
   useDeleteJob,
-} from "../../../Api/hooks";
-import { useJobStore } from "../../../Api/store";
+} from "../Api/hooks";
+import { useJobStore } from "../Api/store";
 
 function CompanyPost() {
   const { handleCreateJob } = useCreateJob();

@@ -10,17 +10,32 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
-import { useFetchCompanyApplications, useApplicationStore } from "../../../Api";
-import { applicationAPI } from "../../../Api/api";
+import { applicationAPI } from "../Api/api";
 
 function CompanyApplication() {
-  const { fetchCompanyApplications, loading, error: fetchError } = useFetchCompanyApplications();
-  const applications = useApplicationStore((state) => state.companyApplications);
+  const [loading, setLoading] = useState(true);
+  const [applications, setApplications] = useState([]);
+  const [error, setError] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
-    fetchCompanyApplications();
-  }, [fetchCompanyApplications]);
+    const loadApplications = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await applicationAPI.getAllCompanyApplications();
+        console.log("Fetched applications:", data);
+        setApplications(data.applications || data);
+      } catch (err) {
+        console.error("Failed to fetch applications:", err);
+        setError(err.response?.data?.message || "Failed to load applications");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadApplications();
+  }, []);
 
   const formatDate = (dateString) => {
     if (!dateString) return "Recently";
@@ -78,15 +93,15 @@ function CompanyApplication() {
     );
   }
 
-  if (fetchError) {
+  if (error) {
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-            <p className="text-red-600 mb-4">{fetchError}</p>
+            <p className="text-red-600 mb-4">{error}</p>
             <button
-              onClick={() => fetchCompanyApplications()}
-              className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+              onClick={() => window.location.reload()}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Retry
             </button>
@@ -142,7 +157,10 @@ function CompanyApplication() {
                         </span>
                         <span className="text-sm text-gray-500 flex items-center gap-1">
                           <Clock className="w-4 h-4" />
-                          Applied {formatDate(application.appliedAt || application.createdAt)}
+                          Applied{" "}
+                          {formatDate(
+                            application.appliedAt || application.createdAt
+                          )}
                         </span>
                       </div>
 
@@ -173,7 +191,9 @@ function CompanyApplication() {
                         <Briefcase className="w-4 h-4" />
                         <span className="font-medium">Applied for:</span>
                         <span className="font-semibold text-gray-900">
-                          {application.job?.jobTitle || application.job?.title || "Job Position"}
+                          {application.job?.jobTitle ||
+                            application.job?.title ||
+                            "Job Position"}
                         </span>
                       </div>
 
@@ -217,6 +237,8 @@ function CompanyApplication() {
                           View CV
                         </a>
                       )}
+
+                      {/* Action Buttons */}
                       {application.status?.toUpperCase() === "PENDING" && (
                         <>
                           <button
@@ -239,6 +261,8 @@ function CompanyApplication() {
                           </button>
                         </>
                       )}
+
+                      {/* Additional actions for Shortlisted candidates */}
                       {application.status?.toUpperCase() === "SHORTLISTED" && (
                         <button
                           onClick={() =>

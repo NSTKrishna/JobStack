@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FolderClosed, Heart, Eye, Video } from 'lucide-react';
-import { useFetchApplications } from '../../Api/hooks';
-import { useApplicationStore } from '../../Api/store';
+import { useFetchApplications } from '../Api/hooks';
+import { useApplicationStore } from '../Api/store';
 
 function StudentDash() {
   const { fetchApplications, loading } = useFetchApplications();

@@ -13,7 +13,7 @@ import {
   CheckCircle2,
   ArrowRight,
 } from "lucide-react";
-import { useSignup } from "../../Api/hooks";
+import { useSignup } from "../Api/hooks";
 
 function SignUpPage() {
   const { handleSignup } = useSignup();

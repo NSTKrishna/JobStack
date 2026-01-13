@@ -9,7 +9,7 @@ import {
   EyeOff,
   ArrowRight,
 } from "lucide-react";
-import { useLogin } from "../../Api/hooks";
+import { useLogin } from "../Api/hooks";
 
 function LoginCompany() {
   const { handleLogin } = useLogin();

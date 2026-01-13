@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useFetchCompanyOverview } from "../../Api/hooks";
+import { useFetchCompanyOverview } from "../Api/hooks";
 import { Briefcase, Users, Calendar, TrendingUp } from "lucide-react";
 
 function CompanyDash() {

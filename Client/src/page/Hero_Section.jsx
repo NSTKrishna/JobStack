@@ -7,9 +7,8 @@ import {
   Sparkles,
   ArrowRight,
 } from "lucide-react";
-import {Marquee} from "../../Effects/Marquee";
+import { Marquee } from "./Marquee";
 import { Link } from "react-router-dom";
-
 
 function HeroSection() {
   const stats = [
@@ -20,13 +19,11 @@ function HeroSection() {
   ];
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 overflow-hidden">
-
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
       <div className="absolute top-40 right-10 w-72 h-72 bg-gray-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
       <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
 
       <div className="Container relative px-6 md:px-16 lg:px-24 py-20 animate-slide-in-blur">
-
         <div className="flex justify-center mb-8 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
             <Sparkles className="h-4 w-4 text-blue-600" />
@@ -35,7 +32,6 @@ function HeroSection() {
             </span>
           </div>
         </div>
-
 
         <div className="Content text-center max-w-5xl mx-auto">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
