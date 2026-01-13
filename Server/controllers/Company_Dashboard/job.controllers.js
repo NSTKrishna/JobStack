@@ -15,7 +15,6 @@ const PostJob = async (req, res) => {
       requirements,
     } = req.body;
 
-    // Get company ID from authenticated user (req.user should be set by auth middleware)
     const companyId = req.user?.id;
 
     if (!companyId) {
@@ -25,7 +24,6 @@ const PostJob = async (req, res) => {
       });
     }
 
-    // Validate required fields
     if (!jobTitle || !jobType || !department || !location) {
       return res.status(400).json({
         message: "Missing required fields",

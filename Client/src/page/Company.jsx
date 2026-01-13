@@ -33,7 +33,7 @@ function CompanyView() {
       technology: "💻",
       "AI & Technology": "🤖",
       "Media & Entertainment": "🎵",
-      Sustainability: "🐻",
+      "Sustainability": "🐻",
       "IoT & Smart Home": "🐛",
       "Social & Dating": "🎯",
       "Fashion & Lifestyle": "👗",
