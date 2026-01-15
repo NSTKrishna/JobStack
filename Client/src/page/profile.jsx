@@ -111,7 +111,6 @@ function CompanyProfile() {
               />
             </div>
 
-            {/* Company Size */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Company Size
@@ -133,7 +132,6 @@ function CompanyProfile() {
               </select>
             </div>
 
-            {/* Industry */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Industry
@@ -156,7 +154,6 @@ function CompanyProfile() {
               </select>
             </div>
 
-            {/* Headquarters */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Headquarters Location

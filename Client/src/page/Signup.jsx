@@ -41,7 +41,6 @@ function SignUpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Client-side validation
     if (!formData.fullName || formData.fullName.trim() === "") {
       alert("Please enter your full name");
       return;
@@ -83,7 +82,7 @@ function SignUpPage() {
   };
 
   const handleVerifyCIN = () => {
-    // Simulate CIN verification
+
     setCinVerified(true);
     setTimeout(() => {
       alert("CIN ID verified successfully!");
@@ -123,8 +122,8 @@ function SignUpPage() {
                     setFormData({ ...formData, role: "job_seeker" })
                   }
                   className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium transition-all duration-300 ${formData.role === "job_seeker"
-                      ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                 >
                   <User className="h-4 w-4" />
@@ -134,8 +133,8 @@ function SignUpPage() {
                   type="button"
                   onClick={() => setFormData({ ...formData, role: "company" })}
                   className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium transition-all duration-300 ${formData.role === "company"
-                      ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                 >
                   <Briefcase className="h-4 w-4" />
@@ -241,8 +240,8 @@ function SignUpPage() {
                     type="button"
                     onClick={handleVerifyCIN}
                     className={`px-4 py-3 rounded-lg font-medium transition-all duration-300 whitespace-nowrap ${cinVerified
-                        ? "bg-green-100 text-green-700 border border-green-300"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
+                      ? "bg-green-100 text-green-700 border border-green-300"
+                      : "bg-blue-600 text-white hover:bg-blue-700"
                       }`}
                   >
                     {cinVerified ? (

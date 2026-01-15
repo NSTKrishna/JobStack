@@ -28,7 +28,7 @@ export const useAuthStore = create(
           ),
       }),
       {
-        name: "auth-storage", // unique name for localStorage key
+        name: "auth-storage",
       }
     )
   )
@@ -75,7 +75,7 @@ export const useJobStore = create(
 export const useApplicationStore = create(
   devtools((set) => ({
     applications: [],
-    companyApplications: [], // Added for company view
+    companyApplications: [],
     loading: false,
     error: null,
     setApplications: (applications) =>

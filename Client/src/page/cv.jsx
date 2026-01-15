@@ -12,7 +12,6 @@ function MyCV() {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
     const allowedTypes = [
       "application/pdf",
       "application/msword",
@@ -23,7 +22,6 @@ function MyCV() {
       return;
     }
 
-    // Validate file size (5MB max)
     if (file.size > 5 * 1024 * 1024) {
       alert("File size must be less than 5MB");
       return;
@@ -44,18 +42,17 @@ function MyCV() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Content Section */}
+
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Header */}
+
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">My CV</h1>
           <p className="text-gray-500 text-lg">Upload and manage your resume</p>
         </div>
 
-        {/* Upload CV Card */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-20">
           <div className="flex flex-col items-center justify-center text-center">
-            {/* Document Icon */}
+
             <div className="mb-6">
               <svg
                 className="w-24 h-24 text-gray-400"
@@ -73,7 +70,6 @@ function MyCV() {
               </svg>
             </div>
 
-            {/* CV Status */}
             {user?.cvUrl ? (
               <>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -94,19 +90,16 @@ function MyCV() {
               </>
             )}
 
-            {/* Success Message */}
             {uploadSuccess && (
               <div className="mb-4 text-green-600 font-medium">
                 CV uploaded successfully!
               </div>
             )}
 
-            {/* Error Message */}
             {error && (
               <div className="mb-4 text-red-600 font-medium">{error}</div>
             )}
 
-            {/* Upload Button */}
             <input
               ref={fileInputRef}
               type="file"

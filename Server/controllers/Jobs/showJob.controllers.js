@@ -99,7 +99,6 @@ const DeleteJob = async (req, res) => {
       });
     }
 
-    // Check if job exists and belongs to company
     const job = await prisma.job.findUnique({
       where: { id: parseInt(id) },
       include: {

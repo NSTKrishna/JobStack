@@ -150,7 +150,7 @@ function Jobs() {
         </Link>
       </div>
 
-      <div className="Testimonials text-center px-6 py-16 bg-gradient-to-br from-blue-50 to-gray-50 rounded-3xl mx-6 md:mx-10 lg:mx-20">
+      <div className="w-full text-center px-6 py-16 bg-gradient-to-br from-blue-50 to-gray-50 rounded-3xl">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md mb-6">
           <span className="text-sm font-medium text-blue-600">
             ⭐ Testimonials

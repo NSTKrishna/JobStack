@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
   const allowed = /pdf|doc|docx/;
-  // Remove the leading dot using substring(1)
+
   const ext = path.extname(file.originalname).toLowerCase().substring(1);
   if (allowed.test(ext)) {
     cb(null, true);

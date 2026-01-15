@@ -25,15 +25,13 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Handle Network Errors (Server Down)
+
     if (!error.response) {
       console.error(
-        "🚨 NETWORK ERROR: Cannot connect to server. Is it running?"
+        "NETWORK ERROR: Cannot connect to server. Is it running?"
       );
-      // You can optionally allow this to propagate or return a specific object
     }
 
-    // Handle Authentication Errors
     if (error.response?.status === 401) {
       const isAuthenticated = useAuthStore.getState().isAuthenticated;
       if (isAuthenticated) {
@@ -70,42 +68,41 @@ export const authAPI = {
   },
 };
 
-// Job API
+
 export const jobAPI = {
-  // Get all jobs (public)
+
   getAllJobs: async (filters = {}) => {
     const response = await api.get("/jobs", { params: filters });
     return response.data;
   },
 
-  // Get job by ID (public)
   getJobById: async (id) => {
     const response = await api.get(`/jobs/${id}`);
     return response.data;
   },
 
-  // Get company's own jobs (protected - company only)
+
   getCompanyJobs: async () => {
     const response = await api.get("/Company_dashboard/jobs");
     return response.data;
   },
 
-  // Create job (protected - company only)
+
   createJob: async (jobData) => {
     const response = await api.post("/Company_dashboard/post_job", jobData);
     return response.data;
   },
 
-  // Delete job (protected - company only)
+
   deleteJob: async (id) => {
     const response = await api.delete(`/Company_dashboard/jobs/${id}`);
     return response.data;
   },
 };
 
-// Application API
+
 export const applicationAPI = {
-  // Apply to job (protected - user only)
+
   applyToJob: async (jobId, applicationData) => {
     const response = await api.post(
       `/User_dashboard/apply/${jobId}`,
@@ -114,13 +111,13 @@ export const applicationAPI = {
     return response.data;
   },
 
-  // Get user's applications (protected - user only)
+
   getMyApplications: async () => {
     const response = await api.get("/User_dashboard/applications");
     return response.data;
   },
 
-  // Get applications for a job (protected - company only)
+
   getJobApplications: async (jobId) => {
     const response = await api.get(
       `/Company_dashboard/jobs/${jobId}/applications`
@@ -128,7 +125,6 @@ export const applicationAPI = {
     return response.data;
   },
 
-  // Update application status (protected - company only)
   updateApplicationStatus: async (applicationId, status) => {
     const response = await api.put(
       `/Company_dashboard/applications/${applicationId}/status`,
@@ -137,28 +133,23 @@ export const applicationAPI = {
     return response.data;
   },
 
-  // Get all company applications (protected - company only)
   getAllCompanyApplications: async () => {
     const response = await api.get("/Company_dashboard/applications");
     return response.data;
   },
 };
 
-// Profile API
 export const profileAPI = {
-  // Get company profile (protected - company only)
   getCompanyProfile: async () => {
     const response = await api.get("/Company_dashboard/profile");
     return response.data;
   },
 
-  // Update company profile (protected - company only)
   updateCompanyProfile: async (profileData) => {
     const response = await api.post("/Company_dashboard/profile", profileData);
     return response.data;
   },
 
-  // Upload CV (protected - user only)
   uploadCV: async (file) => {
     const formData = new FormData();
     formData.append("cv", file);
@@ -171,36 +162,30 @@ export const profileAPI = {
   },
 };
 
-// User API
+
 export const userAPI = {
-  // Get user profile (protected - user only)
   getProfile: async () => {
     const response = await api.get("/User_dashboard/profile");
     return response.data;
   },
 
-  // Update user profile (protected - user only)
   updateProfile: async (profileData) => {
     const response = await api.post("/User_dashboard/profile", profileData);
     return response.data;
   },
 };
 
-// Company API
 export const companyAPI = {
-  // Get all companies
   getAllCompanies: async () => {
     const response = await api.get("/companies/show");
     return response.data;
   },
 
-  // Get company by ID
   getCompanyById: async (id) => {
     const response = await api.get(`/companies/${id}`);
     return response.data;
   },
 
-  // Get company dashboard overview
   getCompanyOverview: async () => {
     const response = await api.get("/Company_dashboard/overview");
     return response.data;

@@ -1,21 +1,17 @@
-// filepath: /Users/krishnagehlot/Desktop/JobStack/Server/controllers/User_Dashboard/application.controllers.js
 const prisma = require("../../db/config.js");
 
-// Apply to a job
 const applyToJob = async (req, res) => {
   try {
     const jobId = parseInt(req.params.jobId);
-    const userId = req.user.id; // from auth middleware
+    const userId = req.user.id;
     const { coverLetter } = req.body;
 
     console.log("Apply to job request:", { userId, jobId, coverLetter });
 
-    // Validate job ID
     if (!jobId || isNaN(jobId)) {
       return res.status(400).json({ message: "Invalid job ID" });
     }
 
-    // Check if job exists
     const job = await prisma.job.findUnique({
       where: { id: jobId },
       include: { company: true },
@@ -25,7 +21,6 @@ const applyToJob = async (req, res) => {
       return res.status(404).json({ message: "Job not found" });
     }
 
-    // Check if user already applied
     const existingApplication = await prisma.applications.findUnique({
       where: {
         userId_jobId: {
@@ -41,7 +36,6 @@ const applyToJob = async (req, res) => {
       });
     }
 
-    // Create application
     const application = await prisma.applications.create({
       data: {
         userId: userId,
@@ -75,7 +69,6 @@ const applyToJob = async (req, res) => {
   }
 };
 
-// Get all applications for current user
 const getMyApplications = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -120,7 +113,6 @@ const getMyApplications = async (req, res) => {
   }
 };
 
-// Get single application details
 const getApplicationById = async (req, res) => {
   try {
     const applicationId = parseInt(req.params.id);
@@ -129,7 +121,7 @@ const getApplicationById = async (req, res) => {
     const application = await prisma.applications.findFirst({
       where: {
         id: applicationId,
-        userId: userId, // ensure user can only see their own application
+        userId: userId,
       },
       include: {
         job: {
@@ -159,13 +151,10 @@ const getApplicationById = async (req, res) => {
   }
 };
 
-// Withdraw application
 const withdrawApplication = async (req, res) => {
   try {
     const applicationId = parseInt(req.params.id);
     const userId = req.user.id;
-
-    // Check if application exists and belongs to user
     const application = await prisma.applications.findFirst({
       where: {
         id: applicationId,
@@ -179,14 +168,12 @@ const withdrawApplication = async (req, res) => {
       });
     }
 
-    // Check if application is still pending
     if (application.status !== "PENDING") {
       return res.status(400).json({
         message: "Cannot withdraw application that has been processed",
       });
     }
 
-    // Delete application
     await prisma.applications.delete({
       where: {
         id: applicationId,

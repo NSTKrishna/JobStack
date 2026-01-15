@@ -1,10 +1,5 @@
-// Central exports for all API, stores, and hooks
-
-// Stores
-// Stores
 export { useAuthStore, selectUser, selectIsAuthenticated, useJobStore, useApplicationStore, selectSavedJobs, selectJobById } from "./store";
 
-// API functions
 export {
   api,
   authAPI,
@@ -14,7 +9,6 @@ export {
   companyAPI,
 } from "./api";
 
-// Hooks
 export {
   useLogin,
   useSignup,

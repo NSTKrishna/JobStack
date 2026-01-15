@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Autoplay } from "swiper/modules"; 
+import { Autoplay } from "swiper/modules";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -130,7 +130,7 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto">
 
         <Swiper
-          modules={[Autoplay]} 
+          modules={[Autoplay]}
           spaceBetween={20}
           slidesPerView={1}
           loop={true}

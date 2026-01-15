@@ -372,7 +372,7 @@ export const useFetchCompanyApplications = () => {
     setError(null);
     try {
       const data = await applicationAPI.getAllCompanyApplications();
-      // Handle both raw array and { applications: [] } format
+
       const apps = data.applications || data;
       setCompanyApplications(apps);
       return apps;

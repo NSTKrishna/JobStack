@@ -9,6 +9,7 @@ const {
 } = require("../../controllers/Company_Dashboard/profile.controllers");
 const {
   Application,
+  updateApplicationStatus,
 } = require("../../controllers/Company_Dashboard/application.controllers");
 const {
   Overview,
@@ -25,6 +26,7 @@ router.get("/jobs", ShowCompanyJobs);
 router.post("/profile", Profile);
 router.get("/application", Application);
 router.get("/applications", Application); // Get all applications
+router.put("/applications/:id/status", updateApplicationStatus);
 router.delete("/jobs/:id", DeleteJob);
 
 module.exports = router;

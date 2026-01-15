@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const secret = "your_jwt_secret_key";
 
-function setUser(user,role) {
+function setUser(user, role) {
   return jwt.sign(
     {
       id: user.id,
@@ -10,8 +10,8 @@ function setUser(user,role) {
       role: role
     },
     secret, {
-      expiresIn: '1hr' // 1 hr // later
-    }
+    expiresIn: '1hr'
+  }
   );
 }
 

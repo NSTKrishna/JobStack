@@ -19,6 +19,7 @@ import LoginStudent from "./page/Login.jsx";
 import { ScrollToTop } from "./page/Marquee.jsx";
 import { Outlet } from "react-router-dom";
 import ProtectedRoute from "./page/ProtectedRoute.jsx";
+import { DashboardLayout } from "./components/dashboard/DashboardLayout";
 
 function MainLayout({ children }) {
   return (
@@ -97,9 +98,13 @@ function App() {
             }
           />
 
-          {/* Protected Student Routes */}
+
           <Route element={<ProtectedRoute />}>
-            <Route path="/StudentDashboard" element={<StudentDashboardLayout />}>
+            <Route path="/StudentDashboard" element={
+              <DashboardLayout role="student">
+                <Outlet />
+              </DashboardLayout>
+            }>
               <Route index element={<StudentDash />} />
               <Route path="applications" element={<MyApplications />} />
               <Route path="cv" element={<MyCV />} />
@@ -107,7 +112,11 @@ function App() {
             </Route>
           </Route>
           <Route element={<ProtectedRoute />}>
-            <Route path="/CompanyDashboard" element={<CompanyDashboardLayout />}>
+            <Route path="/CompanyDashboard" element={
+              <DashboardLayout role="company">
+                <Outlet />
+              </DashboardLayout>
+            }>
               <Route index element={<CompanyDash />} />
               <Route path="job-postings" element={<CompanyPost />} />
               <Route path="applications" element={<CompanyApplication />} />

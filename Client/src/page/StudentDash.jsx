@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FolderClosed, Heart, Eye, Video } from 'lucide-react';
+import { FolderClosed, Heart, Eye, Video, Briefcase, FileText } from 'lucide-react';
 import { useFetchApplications } from '../Api/hooks';
 import { useApplicationStore } from '../Api/store';
+import { StatCard } from '../components/dashboard/StatCard';
 
 function StudentDash() {
   const { fetchApplications, loading } = useFetchApplications();
@@ -12,21 +13,11 @@ function StudentDash() {
     fetchApplications();
   }, []);
 
-  // Calculate Stats
   const totalApplications = applications.length;
   const interviews = applications.filter(app => app.status === 'SHORTLISTED').length;
   const rejected = applications.filter(app => app.status === 'REJECTED').length;
-  // Placeholder for views/saved as we don't track them yet
   const profileViews = 0;
 
-  const stats = [
-    { label: 'Applications', value: totalApplications, icon: <FolderClosed /> },
-    { label: 'Interviews', value: interviews, icon: <Video /> },
-    { label: 'Rejected', value: rejected, icon: <Heart className="text-red-500" /> }, // Replaced Saved Jobs for now or keep placeholder
-    { label: 'Profile Views', value: profileViews, icon: <Eye /> },
-  ];
-
-  // Get recent 3 applications
   const recentApplications = [...applications]
     .sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt))
     .slice(0, 3);
@@ -42,125 +33,119 @@ function StudentDash() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6 py-8">
+    <div className="space-y-6">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-gray-600">{stat.label}</h3>
-                <span className="text-2xl text-gray-400">{stat.icon}</span>
-              </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Student Dashboard</h1>
+        <p className="text-gray-600">Track your job applications and upcoming interviews.</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <StatCard
+          title="Applications"
+          value={totalApplications}
+          icon={<FolderClosed className="w-6 h-6" />}
+          color="blue"
+        />
+        <StatCard
+          title="Interviews"
+          value={interviews}
+          icon={<Video className="w-6 h-6" />}
+          color="purple"
+        />
+        <StatCard
+          title="Rejected"
+          value={rejected}
+          icon={<Heart className="w-6 h-6 text-red-600" />}
+          color="red"
+        />
+        <StatCard
+          title="Profile Views"
+          value={profileViews}
+          icon={<Eye className="w-6 h-6" />}
+          color="green"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-gray-900">Recent Applications</h2>
+              <Link to="/StudentDashboard/applications" className="text-sm font-medium text-blue-600 hover:text-blue-700">
+                View All
+              </Link>
             </div>
-          ))}
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <div className="mb-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-1">Recent Applications</h2>
-                <p className="text-sm text-gray-500">Track the status of your job applications</p>
+            {loading ? (
+              <div className="text-center py-12 text-gray-400">Loading applications...</div>
+            ) : recentApplications.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="p-3 bg-gray-50 rounded-full inline-block mb-3">
+                  <FolderClosed className="w-8 h-8 text-gray-300" />
+                </div>
+                <p className="text-gray-500">No applications yet. Start applying!</p>
+                <Link to="/Job_page" className="text-blue-600 font-medium mt-2 inline-block">Find Jobs</Link>
               </div>
-
-              {loading ? (
-                <div className="text-center py-8 text-gray-500">Loading applications...</div>
-              ) : recentApplications.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">No applications yet. Start applying!</div>
-              ) : (
-                <div className="space-y-4">
-                  {recentApplications.map((application) => (
-                    <div
-                      key={application.id}
-                      className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors"
-                    >
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900 mb-2">
-                            {application.job?.jobTitle || "Unknown Position"}
-                          </h3>
-                          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                            <div className="flex items-center gap-1">
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                              </svg>
-                              {application.company?.name || "Unknown Company"}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                              </svg>
-                              {application.job?.location || "Location N/A"}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              {new Date(application.appliedAt).toLocaleDateString()}
-                            </div>
-                          </div>
-                        </div>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(application.status)}`}>
-                          {application.status}
-                        </span>
+            ) : (
+              <div className="space-y-4">
+                {recentApplications.map((application) => (
+                  <div
+                    key={application.id}
+                    className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-blue-100 hover:bg-blue-50/50 transition-all"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center text-xl font-bold text-gray-400 group-hover:bg-white group-hover:text-blue-600 transition-colors">
+                        {application.company?.name?.[0] || "C"}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors">
+                          {application.job?.jobTitle || "Unknown Position"}
+                        </h3>
+                        <p className="text-sm text-gray-500">
+                          {application.company?.name || "Unknown Company"} • {new Date(application.appliedAt).toLocaleDateString()}
+                        </p>
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
-
-              <div className="mt-6 text-center">
-                <Link
-                  to="/StudentDashboard/applications"
-                  className="text-gray-900 font-medium hover:underline"
-                >
-                  View All Applications
-                </Link>
+                    <div className="mt-3 sm:mt-0">
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(application.status)}`}>
+                        {application.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 text-white shadow-lg">
+            <h3 className="font-bold text-lg mb-2">Complete Profile</h3>
+            <p className="text-gray-300 text-sm mb-6">
+              Complete your profile to increase your chances of getting hired.
+            </p>
+            <div className="w-full bg-gray-700 h-2 rounded-full mb-4">
+              <div className="bg-blue-500 h-2 rounded-full w-3/4"></div>
             </div>
+            <Link to="/StudentDashboard/profile" className="block w-full text-center bg-white text-gray-900 font-bold py-3 rounded-xl hover:bg-gray-100 transition-colors">
+              Update Profile
+            </Link>
           </div>
 
-
-          <div className="space-y-6">
-
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
-              <div className="space-y-3">
-                <Link
-                  to="/Job_page"
-                  className="flex items-center justify-center gap-2 w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                  Find Jobs
-                </Link>
-                <Link
-                  to="/StudentDashboard/profile"
-                  className="flex items-center justify-center gap-2 w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  Update Profile
-                </Link>
-                <Link
-                  to="/StudentDashboard/cv"
-                  className="flex items-center justify-center gap-2 w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Upload Resume
-                </Link>
-              </div>
-            </div>
-
-
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h3 className="font-bold text-gray-900 mb-4">Quick Links</h3>
+            <nav className="space-y-2">
+              <Link to="/Job_page" className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-blue-600 transition-colors">
+                <span className="flex items-center gap-3"><Briefcase size={18} /> Find Jobs</span>
+                <span className="text-gray-300">→</span>
+              </Link>
+              <Link to="/StudentDashboard/cv" className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-blue-600 transition-colors">
+                <span className="flex items-center gap-3"><FileText size={18} /> Upload CV</span>
+                <span className="text-gray-300">→</span>
+              </Link>
+            </nav>
           </div>
         </div>
       </div>
