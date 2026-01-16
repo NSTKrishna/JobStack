@@ -112,7 +112,7 @@ const testimonials = [
 
 export function Marquee() {
   return (
-    <div className="relative w-full overflow-hidden bg-white py-10">
+    <div className="relative w-full overflow-hidden py-10">
       <div className="flex animate-marquee whitespace-nowrap">
         {logos.map((logo) => (
           <div className="flex items-center justify-center min-w-[150px] mx-8">
@@ -126,7 +126,7 @@ export function Marquee() {
 
 export function Testimonials() {
   return (
-    <div className="w-full bg-gradient-to-br from-blue-50 via-white to-gray-50 py-16 px-5">
+    <div className="w-full py-16 px-5">
       <div className="max-w-7xl mx-auto">
 
         <Swiper

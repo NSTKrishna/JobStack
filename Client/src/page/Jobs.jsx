@@ -62,7 +62,7 @@ function Jobs() {
 
   return (
     <div
-      className="Container bg-gradient-to-b from-white to-gray-50 py-20"
+      className="Container py-20"
       id="jobs"
     >
       <div className="text-center max-w-3xl mx-auto px-6 mb-16">
