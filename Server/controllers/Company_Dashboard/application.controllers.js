@@ -25,30 +25,28 @@ const Application = async (req, res) => {
               },
               take: 1,
             },
-          }
+          },
         },
         job: {
           select: {
             id: true,
-            jobTitle: true
-          }
-        }
+            jobTitle: true,
+          },
+        },
       },
       orderBy: {
-        appliedAt: "desc"
-      }
+        appliedAt: "desc",
+      },
     });
 
     return res.status(200).json({
       total: applications.length,
-      applications
+      applications,
     });
-  }
-  catch (err) {
-
+  } catch (err) {
     return res.status(500).json({
       message: "Internal server error",
-      error: err.message
+      error: err.message,
     });
   }
 };
@@ -110,7 +108,6 @@ const ViewResume = async (req, res) => {
   }
 };
 
-
 const updateApplicationStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -120,28 +117,29 @@ const updateApplicationStatus = async (req, res) => {
     const application = await prisma.applications.findFirst({
       where: {
         id: parseInt(id),
-        companyId: parseInt(companyId)
-      }
+        companyId: parseInt(companyId),
+      },
     });
 
     if (!application) {
-      return res.status(404).json({ message: "Application not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ message: "Application not found or unauthorized" });
     }
 
     const updatedApplication = await prisma.applications.update({
       where: { id: parseInt(id) },
-      data: { status }
+      data: { status },
     });
 
     return res.status(200).json({
       message: "Status updated successfully",
-      application: updatedApplication
+      application: updatedApplication,
     });
-
   } catch (err) {
     return res.status(500).json({
       message: "Internal server error",
-      error: err.message
+      error: err.message,
     });
   }
 };

@@ -72,14 +72,14 @@ function CompanyApplication() {
       await applicationAPI.updateApplicationStatus(applicationId, newStatus);
       setApplications(
         applications.map((app) =>
-          app.id === applicationId ? { ...app, status: newStatus } : app
-        )
+          app.id === applicationId ? { ...app, status: newStatus } : app,
+        ),
       );
       alert(`Application ${newStatus.toLowerCase()} successfully!`);
     } catch (err) {
       console.error("Failed to update status:", err);
       alert(
-        err.response?.data?.message || "Failed to update application status"
+        err.response?.data?.message || "Failed to update application status",
       );
     }
   };
@@ -152,7 +152,7 @@ function CompanyApplication() {
                       <div className="flex items-center gap-3 mb-2">
                         <span
                           className={`px-3 py-1 text-xs font-semibold rounded-full border ${getStatusColor(
-                            application.status
+                            application.status,
                           )}`}
                         >
                           {application.status || "Pending"}
@@ -161,7 +161,7 @@ function CompanyApplication() {
                           <Clock className="w-4 h-4" />
                           Applied{" "}
                           {formatDate(
-                            application.appliedAt || application.createdAt
+                            application.appliedAt || application.createdAt,
                           )}
                         </span>
                       </div>
@@ -206,7 +206,7 @@ function CompanyApplication() {
                               setExpandedId(
                                 expandedId === application.id
                                   ? null
-                                  : application.id
+                                  : application.id,
                               )
                             }
                             className="text-blue-600 text-sm font-medium hover:text-blue-700 flex items-center gap-1"
@@ -228,32 +228,37 @@ function CompanyApplication() {
                       )}
 
                       {/* Resume Section */}
-                      {application.user?.document && application.user.document.length > 0 && (
-                        <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <FileText className="w-5 h-5 text-blue-600" />
-                              <div>
-                                <p className="text-sm font-semibold text-gray-900">
-                                  {application.user.document[0].fileName || 'Resume'}
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                  Uploaded {new Date(application.user.document[0].uploadedAt).toLocaleDateString()}
-                                </p>
+                      {application.user?.document &&
+                        application.user.document.length > 0 && (
+                          <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <FileText className="w-5 h-5 text-blue-600" />
+                                <div>
+                                  <p className="text-sm font-semibold text-gray-900">
+                                    {application.user.document[0].fileName ||
+                                      "Resume"}
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    Uploaded{" "}
+                                    {new Date(
+                                      application.user.document[0].uploadedAt,
+                                    ).toLocaleDateString()}
+                                  </p>
+                                </div>
                               </div>
+                              <a
+                                href={application.user.document[0].fileUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-xs font-semibold hover:bg-blue-700 transition-colors flex items-center gap-1"
+                              >
+                                View Resume
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
                             </div>
-                            <a
-                              href={application.user.document[0].fileUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-xs font-semibold hover:bg-blue-700 transition-colors flex items-center gap-1"
-                            >
-                              View Resume
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
                           </div>
-                        </div>
-                      )}
+                        )}
                     </div>
 
                     <div className="flex flex-col gap-2 ml-4">
