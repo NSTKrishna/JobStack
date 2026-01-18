@@ -89,7 +89,7 @@ jobs:
           retention-days: 7
 
   # =========================
-  # Code Quality Check
+  # Code Quality Checks
   # =========================
   quality:
     name: Code Quality
@@ -101,7 +101,7 @@ jobs:
 
       - name: Check for merge conflicts
         run: |
-          if grep -r -E "<<<<<<<|=======|>>>>>>>" . \
+          if grep -rE '^(<<<<<<<|=======|>>>>>>>)' . \
             --exclude-dir=.git \
             --exclude-dir=node_modules \
             --exclude-dir=.github; then
@@ -109,7 +109,7 @@ jobs:
             exit 1
           fi
 
-      - name: Check file sizes
+      - name: Check large files (>10MB)
         run: |
           find . -type f -size +10M \
             ! -path "./node_modules/*" \
@@ -130,7 +130,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check environment files
+      - name: Check environment example files
         run: |
           echo "Checking for .env.example files..."
           [ -f "Server/.env.example" ] && echo "✅ Backend .env.example exists" || echo "⚠️ Backend .env.example missing"
