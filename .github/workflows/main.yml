@@ -7,7 +7,9 @@ on:
     branches: [main, master, develop]
 
 jobs:
+  # =========================
   # Backend Build & Test
+  # =========================
   backend:
     name: Backend Build
     runs-on: ubuntu-latest
@@ -41,7 +43,9 @@ jobs:
         run: npm test --if-present
         continue-on-error: true
 
+  # =========================
   # Frontend Build & Test
+  # =========================
   frontend:
     name: Frontend Build
     runs-on: ubuntu-latest
@@ -84,7 +88,9 @@ jobs:
           path: Client/dist
           retention-days: 7
 
+  # =========================
   # Code Quality Check
+  # =========================
   quality:
     name: Code Quality
     runs-on: ubuntu-latest
@@ -95,22 +101,26 @@ jobs:
 
       - name: Check for merge conflicts
         run: |
-          if grep -r "<<<<<<< HEAD" . \
+          if grep -r -E "<<<<<<<|=======|>>>>>>>" . \
             --exclude-dir=.git \
             --exclude-dir=node_modules \
             --exclude-dir=.github; then
-            echo "Merge conflict markers found!"
+            echo "❌ Merge conflict markers found!"
             exit 1
           fi
 
       - name: Check file sizes
         run: |
-          find . -type f -size +10M | grep -v node_modules | grep -v .git || true
+          find . -type f -size +10M \
+            ! -path "./node_modules/*" \
+            ! -path "./.git/*" || true
 
       - name: Success message
         run: echo "✅ All quality checks passed!"
 
-  # Deployment readiness check
+  # =========================
+  # Deployment Readiness
+  # =========================
   deploy-ready:
     name: Deployment Ready
     runs-on: ubuntu-latest
@@ -123,8 +133,8 @@ jobs:
       - name: Check environment files
         run: |
           echo "Checking for .env.example files..."
-          [ -f "Server/.env.example" ] && echo "✅ Backend .env.example exists" || echo "⚠️  Backend .env.example missing"
-          [ -f "Client/.env.example" ] && echo "✅ Frontend .env.example exists" || echo "⚠️  Frontend .env.example missing"
+          [ -f "Server/.env.example" ] && echo "✅ Backend .env.example exists" || echo "⚠️ Backend .env.example missing"
+          [ -f "Client/.env.example" ] && echo "✅ Frontend .env.example exists" || echo "⚠️ Frontend .env.example missing"
 
       - name: Deployment ready
         run: |
