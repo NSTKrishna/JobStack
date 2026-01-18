@@ -3,7 +3,6 @@ const prisma = require("../../db/config");
 const ShowCompany = async (req, res) => {
   try {
     const companies = await prisma.profile_companies.findMany();
-    console.log(companies);
     res.status(200).json({
       message: "Companies Retrieved Successfully",
       companies
@@ -15,5 +14,4 @@ const ShowCompany = async (req, res) => {
     });
   }
 };
-
 module.exports = { ShowCompany };

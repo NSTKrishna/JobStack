@@ -3,7 +3,6 @@ const prisma = require("../../db/config");
 const Application = async (req, res) => {
   try {
     const companyId = req.user.id;
-    console.log(`[Backend] Fetching applications for Company ID: ${companyId}`);
 
     const applications = await prisma.applications.findMany({
       where: { companyId: parseInt(companyId) },
@@ -13,7 +12,19 @@ const Application = async (req, res) => {
             id: true,
             name: true,
             email: true,
-            enrollment: true
+            enrollment: true,
+            document: {
+              select: {
+                id: true,
+                fileName: true,
+                fileUrl: true,
+                uploadedAt: true,
+              },
+              orderBy: {
+                uploadedAt: "desc",
+              },
+              take: 1,
+            },
           }
         },
         job: {
@@ -34,7 +45,7 @@ const Application = async (req, res) => {
     });
   }
   catch (err) {
-    console.error("[Backend] Error fetching applications:", err);
+
     return res.status(500).json({
       message: "Internal server error",
       error: err.message
@@ -42,13 +53,69 @@ const Application = async (req, res) => {
   }
 };
 
+const ViewResume = async (req, res) => {
+  try {
+    const companyId = req.user.id;
+
+    const application = await prisma.applications.findFirst({
+      where: {
+        companyId: parseInt(companyId),
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            enrollment: true,
+            document: {
+              select: {
+                id: true,
+                fileName: true,
+                fileUrl: true,
+                uploadedAt: true,
+              },
+              orderBy: {
+                uploadedAt: "desc",
+              },
+              take: 1,
+            },
+          },
+        },
+        job: {
+          select: {
+            id: true,
+            jobTitle: true,
+          },
+        },
+      },
+    });
+
+    if (!application) {
+      return res
+        .status(404)
+        .json({ message: "Application not found or unauthorized" });
+    }
+
+    return res.status(200).json({
+      message: "Resume fetched successfully",
+      application,
+      resume: application.user.document[0] || null,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Internal server error",
+      error: err.message,
+    });
+  }
+};
+
+
 const updateApplicationStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
     const companyId = req.user.id;
-
-    console.log(`[Backend] Updating application ${id} status to ${status} for company ${companyId}`);
 
     const application = await prisma.applications.findFirst({
       where: {
@@ -72,7 +139,6 @@ const updateApplicationStatus = async (req, res) => {
     });
 
   } catch (err) {
-    console.error("[Backend] Error updating application status:", err);
     return res.status(500).json({
       message: "Internal server error",
       error: err.message

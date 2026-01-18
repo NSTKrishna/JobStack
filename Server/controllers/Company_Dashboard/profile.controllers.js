@@ -2,10 +2,18 @@ const prisma = require("../../db/config");
 
 const Profile = async (req, res) => {
   try {
-    const { companyName, website, location, description, size, industry } =
-      req.body;
-    const user = await prisma.profile_companies.create({
-      data: {
+    const { companyName, website, location, description, size, industry } = req.body;
+    const profile = await prisma.profile_companies.upsert({
+      where: { companyId: req.user.id },
+      update: {
+        companyName,
+        website,
+        location,
+        description,
+        size,
+        industry,
+      },
+      create: {
         companyName,
         website,
         location,
@@ -15,10 +23,10 @@ const Profile = async (req, res) => {
         company: { connect: { id: req.user.id } },
       },
     });
-    console.log("Updated Company Profile:", user);
+    console.log("Updated Company Profile:", profile);
     return res.status(200).json({
       message: "Profile Updated Successfully",
-      user,
+      profile,
     });
   } catch (err) {
     console.error("Error updating company profile:", err);
@@ -28,4 +36,5 @@ const Profile = async (req, res) => {
     });
   }
 };
-module.exports = { Profile };
+
+module.exports = { Profile};

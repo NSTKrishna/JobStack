@@ -53,7 +53,7 @@ const JobCard = ({ job, onClick }) => {
                 </div>
 
                 <div className="text-gray-500 font-medium mb-4">
-                    {job.company?.name || job.company?.company || "Company"}
+                    {job.company?.company || "Company"}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-sm text-gray-500 mb-4">

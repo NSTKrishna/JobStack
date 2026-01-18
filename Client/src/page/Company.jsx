@@ -5,6 +5,7 @@ import { useCompanyStore } from "../Api/store";
 import { useFetchCompanies } from "../Api/hooks";
 import CompanyCard from "../components/CompanyCard";
 import CompanyDetailModal from "../components/CompanyDetailModal";
+import { data } from "react-router-dom";
 
 function CompanyView() {
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -12,9 +13,12 @@ function CompanyView() {
   const companies = useCompanyStore((state) => state.companies);
   const { fetchCompanies, loading, error } = useFetchCompanies();
 
+
   useEffect(() => {
     fetchCompanies();
   }, [fetchCompanies]);
+
+  console.log(companies);
 
   const getColorForIndex = (index) => {
     const colors = [
@@ -84,7 +88,7 @@ function CompanyView() {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
-      {/* Hero / Header Section */}
+
       <div className="bg-white border-b border-gray-100 pb-12 pt-16 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
           <div className="absolute -left-12 bottom-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
@@ -102,7 +106,6 @@ function CompanyView() {
             Explore top-tier companies, culture, and opportunities. Find the perfect place to grow your career.
           </p>
 
-          {/* Search Bar */}
           <div className="max-w-2xl mx-auto relative bg-white rounded-2xl shadow-xl shadow-blue-100/50 p-2 flex border border-gray-100">
             <div className="flex-1 relative flex items-center">
               <Search className="absolute left-4 text-gray-400 w-6 h-6" />

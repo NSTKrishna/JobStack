@@ -9,6 +9,8 @@ import {
   Briefcase,
   CheckCircle,
   XCircle,
+  Download,
+  ExternalLink,
 } from "lucide-react";
 import { applicationAPI } from "../Api/api";
 
@@ -222,6 +224,34 @@ function CompanyApplication() {
                               </p>
                             </div>
                           )}
+                        </div>
+                      )}
+
+                      {/* Resume Section */}
+                      {application.user?.document && application.user.document.length > 0 && (
+                        <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <FileText className="w-5 h-5 text-blue-600" />
+                              <div>
+                                <p className="text-sm font-semibold text-gray-900">
+                                  {application.user.document[0].fileName || 'Resume'}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  Uploaded {new Date(application.user.document[0].uploadedAt).toLocaleDateString()}
+                                </p>
+                              </div>
+                            </div>
+                            <a
+                              href={application.user.document[0].fileUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-xs font-semibold hover:bg-blue-700 transition-colors flex items-center gap-1"
+                            >
+                              View Resume
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          </div>
                         </div>
                       )}
                     </div>

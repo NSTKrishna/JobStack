@@ -1,4 +1,5 @@
 const prisma = require("../../db/config");
+const cloudinary = require("../../config/cloudinary");
 
 const UploadCV = async (req, res) => {
   try {
@@ -8,22 +9,39 @@ const UploadCV = async (req, res) => {
 
     const userId = req.user.id;
 
-    const updatedUser = await prisma.user.update({
-      where: { id: userId },
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        {
+          folder: "cvs",
+          resource_type: "raw",
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      ).end(req.file.buffer);
+    });
+
+    const document = await prisma.document.create({
       data: {
-        cvUrl: req.file.path,
-        cvFileName: req.file.filename,
+        fileName: req.file.originalname,
+        fileUrl: uploadResult.secure_url,
+        fileId: uploadResult.public_id,
+        size: uploadResult.bytes,
+        user: {
+          connect: { id: userId },
+        },
       },
     });
 
-    res.status(200).json({
+    return res.status(201).json({
       message: "CV uploaded successfully",
-      cvUrl: req.file.path,
-      fileName: req.file.filename,
+      document,
     });
+
   } catch (err) {
     console.error("CV Upload Error:", err);
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
