@@ -227,7 +227,6 @@ function CompanyApplication() {
                         </div>
                       )}
 
-                      {/* Resume Section */}
                       {application.user?.document &&
                         application.user.document.length > 0 && (
                           <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
@@ -273,7 +272,6 @@ function CompanyApplication() {
                         </a>
                       )}
 
-                      {/* Action Buttons */}
                       {application.status?.toUpperCase() === "PENDING" && (
                         <>
                           <button
@@ -292,12 +290,11 @@ function CompanyApplication() {
                             className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors flex items-center gap-2 justify-center"
                           >
                             <XCircle className="w-4 h-4" />
-                            Reject
+                            Rejected
                           </button>
                         </>
                       )}
 
-                      {/* Additional actions for Shortlisted candidates */}
                       {application.status?.toUpperCase() === "SHORTLISTED" && (
                         <button
                           onClick={() =>

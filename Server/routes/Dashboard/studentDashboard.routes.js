@@ -9,7 +9,7 @@ const {
 } = require("../../middlewares/auth.Middleware.js");
 const {
   updateProfile,
-  getProfile
+  getProfile,
 } = require("../../controllers/User_Dashboard/profile.controllers");
 const {
   applyToJob,
@@ -18,18 +18,13 @@ const {
   withdrawApplication,
 } = require("../../controllers/User_Dashboard/application.controllers");
 
-router.get(
-  "/profile",
-  restrictToLoggedIn,
-  RoleBasedAccess("user"),
-  getProfile
-);
+router.get("/profile", restrictToLoggedIn, RoleBasedAccess("user"), getProfile);
 
 router.post(
   "/profile",
   restrictToLoggedIn,
   RoleBasedAccess("user"),
-  updateProfile
+  updateProfile,
 );
 
 router.post(
@@ -37,7 +32,7 @@ router.post(
   restrictToLoggedIn,
   RoleBasedAccess("user"),
   UploadMiddleware,
-  UploadCV
+  UploadCV,
 );
 
 // Application Routes
@@ -45,28 +40,28 @@ router.post(
   "/apply/:jobId",
   restrictToLoggedIn,
   RoleBasedAccess("user"),
-  applyToJob
+  applyToJob,
 );
 
 router.get(
   "/applications",
   restrictToLoggedIn,
   RoleBasedAccess("user"),
-  getMyApplications
+  getMyApplications,
 );
 
 router.get(
   "/applications/:id",
   restrictToLoggedIn,
   RoleBasedAccess("user"),
-  getApplicationById
+  getApplicationById,
 );
 
 router.delete(
   "/applications/:id",
   restrictToLoggedIn,
   RoleBasedAccess("user"),
-  withdrawApplication
+  withdrawApplication,
 );
 
 module.exports = router;

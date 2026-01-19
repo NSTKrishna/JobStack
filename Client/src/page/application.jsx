@@ -30,6 +30,8 @@ function MyApplications() {
     loadApplications();
   }, [fetchApplications]);
 
+  console.log("Applications:", applications);
+
   const formatDate = (dateString) => {
     if (!dateString) return "Recently";
     const date = new Date(dateString);
@@ -113,7 +115,7 @@ function MyApplications() {
                     <div className="flex items-center gap-3 mb-3">
                       <span
                         className={`px-3 py-1 text-xs font-semibold rounded-full border ${getStatusColor(
-                          application.status
+                          application.status,
                         )}`}
                       >
                         {application.status || "Pending"}
@@ -125,17 +127,13 @@ function MyApplications() {
                     </div>
 
                     <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {application.job?.title || "Job Position"}
+                      {application.job.jobTitle}
                     </h3>
 
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
                       <div className="flex items-center gap-1">
                         <Building2 className="w-4 h-4" />
-                        <span>
-                          {application.job?.company?.name ||
-                            application.job?.company?.company ||
-                            "Company"}
-                        </span>
+                        <span>{application.job?.company?.company}</span>
                       </div>
                       {application.job?.location && (
                         <div className="flex items-center gap-1">

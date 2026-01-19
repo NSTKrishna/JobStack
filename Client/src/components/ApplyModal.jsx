@@ -29,7 +29,6 @@ const ApplyModal = ({ job, user, onClose, onSubmit, loading }) => {
                     className="bg-white rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    {/* Header */}
                     <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 flex justify-between items-center text-white">
                         <div>
                             <h2 className="text-2xl font-bold">Apply Now</h2>
@@ -44,7 +43,7 @@ const ApplyModal = ({ job, user, onClose, onSubmit, loading }) => {
                     </div>
 
                     <form onSubmit={handleSubmit} className="p-6 bg-gray-50">
-                        {/* User Info Card */}
+
                         <div className="bg-white p-4 rounded-xl border border-gray-200 mb-6 shadow-sm">
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xl">

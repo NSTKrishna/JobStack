@@ -31,6 +31,7 @@ model User {
   college      College?       @relation(fields: [collegeId], references: [id])
   document     Document[]
   applications Applications[]
+  profile      Profile_user?  @relation(name: "UserProfile")
 }
 
 model Document {
@@ -107,4 +108,18 @@ model Applications {
   company    Company  @relation(fields: [companyId], references: [id])
 
   @@unique([userId, jobId])
+}
+
+model Profile_user {
+  id         Int     @id @default(autoincrement())
+  userId     Int     @unique
+  firstName  String  @default("")
+  lastName   String  @default("")
+  email      String  @default("")
+  phone      String  @default("")
+  city       String  @default("")
+  experience String  @default("")
+  summary    String  @default("")
+  
+  user       User    @relation(fields: [userId], references: [id], name: "UserProfile")
 }

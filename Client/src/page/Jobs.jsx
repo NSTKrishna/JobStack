@@ -96,9 +96,6 @@ function Jobs() {
                   <p className="text-sm text-gray-500">{job.company}</p>
                 </div>
               </div>
-              <button className="p-2 hover:bg-blue-50 rounded-lg transition-colors">
-                <Bookmark className="h-5 w-5 text-gray-400 hover:text-blue-600" />
-              </button>
             </div>
 
             <div className="space-y-2 mb-4">

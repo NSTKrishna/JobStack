@@ -101,10 +101,10 @@ function StudentDash() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors">
-                          {application.job?.jobTitle || "Unknown Position"}
+                          {application.job.jobTitle || "Unknown Position"}
                         </h3>
                         <p className="text-sm text-gray-500">
-                          {application.company?.name || "Unknown Company"} • {new Date(application.appliedAt).toLocaleDateString()}
+                          {application.job.company?.company || "Unknown Company"} • {new Date(application.appliedAt).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
