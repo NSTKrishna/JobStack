@@ -1,4 +1,5 @@
 const prisma = require("../../db/config");
+const {notifyUser} = require("../../websocket");
 
 const PostJob = async (req, res) => {
   try {
@@ -42,6 +43,13 @@ const PostJob = async (req, res) => {
         companyId,
       },
     });
+
+    notifyUser(companyId, {
+      title: jobTitle,
+      message: "We are pleased to inform you that the job posting for " + jobTitle + " is now live on the portal.",
+      createdAt: new Date()
+    });
+
 
     return res.status(201).json({
       message: "Job Posted Successfully",

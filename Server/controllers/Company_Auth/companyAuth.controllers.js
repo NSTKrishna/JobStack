@@ -1,6 +1,7 @@
 const prisma = require("../../db/config.js");
 const bcrypt = require("bcryptjs");
 const { Validate } = require("../../utils/validator.js");
+const { sendEmail } = require("../../utils/sendEmail.js");
 
 const CompanySignup = async (req, res) => {
   try {
@@ -73,6 +74,21 @@ const CompanySignup = async (req, res) => {
         password: await bcrypt.hash(password, 10),
       },
     });
+
+    await sendEmail(
+      email,
+      "Welcome to JobStack 🎉",
+      null,
+      `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #2563eb;">Welcome, ${fullName}!</h2>
+          <p>Your JobStack company account has been created successfully.</p>
+          <p><strong>Company:</strong> ${organizationName}</p>
+          <p>You can now start posting jobs and hiring talent! 🚀</p>
+          <p>Best regards,<br/>The JobStack Team</p>
+        </div>
+      `,
+    );
 
     const { password: _, ...companyWithoutPassword } = company;
 

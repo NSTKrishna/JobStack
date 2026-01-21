@@ -1,7 +1,20 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore, useJobStore, useApplicationStore, useCompanyStore } from "./store";
-import { authAPI, jobAPI, applicationAPI, profileAPI, companyAPI, userAPI } from "./api";
+import {
+  useAuthStore,
+  useJobStore,
+  useApplicationStore,
+  useCompanyStore,
+  useNotificationStore,
+} from "./store";
+import {
+  authAPI,
+  jobAPI,
+  applicationAPI,
+  profileAPI,
+  companyAPI,
+  userAPI,
+} from "./api";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -360,12 +373,14 @@ export const useFetchCompanies = () => {
   }, [setCompanies]);
 
   return { fetchCompanies, loading, error };
-}
+};
 
 export const useFetchCompanyApplications = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const setCompanyApplications = useApplicationStore((state) => state.setCompanyApplications);
+  const setCompanyApplications = useApplicationStore(
+    (state) => state.setCompanyApplications,
+  );
 
   const fetchCompanyApplications = useCallback(async () => {
     setLoading(true);
@@ -385,4 +400,45 @@ export const useFetchCompanyApplications = () => {
   }, [setCompanyApplications]);
 
   return { fetchCompanyApplications, loading, error };
+};
+
+export const useNotifications = () => {
+  const { isAuthenticated } = useAuthStore();
+  const { addNotification } = useNotificationStore();
+  const [connected, setConnected] = useState(false);
+
+  useState(() => {
+    if (!isAuthenticated) return;
+
+    // Dynamically import socket utilities
+    import("../Api/socket").then(
+      ({ initializeSocket, subscribeToNotifications, disconnectSocket }) => {
+        const socket = initializeSocket();
+
+        if (socket) {
+          setConnected(true);
+
+          subscribeToNotifications((payload) => {
+            addNotification(payload);
+
+            // Show browser notification if permitted
+            if (Notification.permission === "granted") {
+              new Notification(payload.title || "New Notification", {
+                body: payload.message,
+                icon: "/logo.png",
+              });
+            }
+          });
+        }
+
+        // Cleanup on unmount
+        return () => {
+          disconnectSocket();
+          setConnected(false);
+        };
+      },
+    );
+  }, [isAuthenticated, addNotification]);
+
+  return { connected };
 };

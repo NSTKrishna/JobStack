@@ -1,10 +1,19 @@
 const express = require("express");
+const http = require("http");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const {initSocket} = require("./websocket");
 const mainRoute = require("./routes/mainRoute");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const s = http.Server(app);
+initSocket(s);
+
+s.listen(process.env.PORT, () => {
+  console.log(`Socket.IO server is running on port ${process.env.PORT}`);
+});
 
 app.use(cors({
   origin: [

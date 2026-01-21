@@ -1,6 +1,7 @@
 const prisma = require("../../db/config.js");
 const bcrypt = require("bcryptjs");
 const { Validate } = require("../../utils/validator.js");
+const { sendEmail } = require("../../utils/sendEmail.js");
 
 const UserSignup = async (req, res) => {
   try {
@@ -86,6 +87,32 @@ const UserSignup = async (req, res) => {
     });
 
     const { password: _, ...userWithoutPassword } = user;
+
+await sendEmail(
+  email,
+  "Welcome to JobStack 🎉",
+  null,
+  `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #2563eb;">Welcome to JobStack, ${fullName}!</h2>
+      <p>Your JobStack account has been created successfully.</p>
+
+      <p>You can now:</p>
+      <ul>
+        <li>Explore and apply for jobs</li>
+        <li>Track your application status in real time</li>
+        <li>Build and manage your professional profile</li>
+      </ul>
+
+      <p>We’re excited to help you take the next step in your career 🚀</p>
+
+      <p>
+        Best regards,<br/>
+        <strong>The JobStack Team</strong>
+      </p>
+    </div>
+  `,
+);
 
     res.status(201).json({
       message: "User registered successfully",
