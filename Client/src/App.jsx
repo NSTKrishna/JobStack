@@ -20,6 +20,7 @@ import { ScrollToTop } from "./page/Marquee.jsx";
 import { Outlet } from "react-router-dom";
 import ProtectedRoute from "./page/ProtectedRoute.jsx";
 import { DashboardLayout } from "./components/dashboard/DashboardLayout";
+import { Analytics } from '@vercel/analytics/next';
 
 function MainLayout({ children }) {
   return (
@@ -126,6 +127,7 @@ function App() {
 
         </Routes>
       </Router>
+      <Analytics />
     </div>
   );
 }
